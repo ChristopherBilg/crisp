@@ -1,7 +1,7 @@
 mod cli;
 
 use clap::Parser;
-use log::{error, info};
+use log::{debug, error, info};
 
 fn main() {
     // Initialize the logger utility
@@ -18,7 +18,19 @@ fn main() {
     let program_args = cli::program_arguments::ProgramArguments::parse();
     info!("Successfully parsed program arguments.");
 
+    match program_args.command_line {
+        Some(_) => {}
+        None => debug!("Command-line mode not used."),
+    }
+
+    match program_args.filename {
+        Some(_) => {}
+        None => debug!("File input mode not used."),
+    }
+
     if program_args.interactive {
         println!("Interactive");
+    } else {
+        debug!("Interactive (REPL) mode not used.");
     }
 }

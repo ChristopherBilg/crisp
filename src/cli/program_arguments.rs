@@ -7,11 +7,11 @@ pub struct ProgramArguments {
     #[clap(short, long)]
     pub interactive: bool,
 
-    // /// Command-line mode
-    // #[clap(short, long)]
-    // pub command: Option<String>,
+    /// Command-line mode
+    #[clap(short, long)]
+    pub command_line: Option<String>,
 
-    // /// File-input mode
-    // #[clap(short, long)]
-    // pub filename: Option<String>,
+    /// File-input mode
+    #[clap(short, long)]
+    pub filename: Option<String>,
 }
