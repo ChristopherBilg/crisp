@@ -12,7 +12,7 @@
 
 - `cargo build`: Builds the crisp binary
 - `cargo run`: Runs the crisp binary
-- `cargo test`: Runs all test functions, in the ./tests directory, that contain the #[test] attribute
+- `cargo test`: Runs all test functions, in the ./tests directory, that contain the `#[test]` attribute
 - `cargo doc [--open]`: Builds the automatically generated cirsp Rust documentation, and optionally opens it in a web browser
 
 - `cargo fmt`: Standard formatter for Rust codestyle
