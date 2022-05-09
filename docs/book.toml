@@ -1,0 +1,12 @@
+[book]
+authors = ["../AUTHORS.md"]
+language = "en"
+multilingual = false
+src = "src"
+title = "crisp Documentation"
+
+[output.html]
+git-repository-url = "https://github.com/ChristopherBilg/crisp"
+edit-url-template = "https://github.com/ChristopherBilg/crisp/edit/master/docs/{path}"
+site-url = "/crisp/"
+cname = "chrisbilger.com/crisp/"
