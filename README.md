@@ -13,13 +13,13 @@
 - `cargo build`: Builds the crisp binary
 - `cargo run`: Runs the crisp binary
 - `cargo test`: Runs all test functions, in the ./tests directory, that contain the `#[test]` attribute
-- `cargo doc [--open]`: Builds the automatically generated cirsp Rust documentation, and optionally opens it in a web browser
+- `cargo doc [--open]`: Builds the automatically generated crisp Rust documentation, and optionally opens it in a web browser
 
 - `cargo fmt`: Standard formatter for Rust codestyle
 - `cargo clippy [--fix]`: Standard linter for Rust, and optionally will automatically fix linted issues
 
 - `mdbook build`: Builds the crisp mdbook locally
-- `mdbook serve`: Serves the crisp mdbook at http://localhost:3000, and rebuilds it on changes
+- `mdbook serve [<directory> | docs/]`: Serves the crisp mdbook at http://localhost:3000, and rebuilds it on changes
 
 ## CI/CD Information
 
