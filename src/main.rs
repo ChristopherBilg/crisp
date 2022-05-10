@@ -1,4 +1,5 @@
 mod atom;
+mod environment;
 mod lexical_analyzer;
 mod program_arguments;
 mod syntax_parser;
