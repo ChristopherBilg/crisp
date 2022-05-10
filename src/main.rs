@@ -1,7 +1,9 @@
 mod cli;
+mod lexer;
 
 use clap::Parser;
 use log::{debug, error, info};
+use std::io::{self, BufRead, Write};
 
 fn main() {
     // Initialize the logger utility
@@ -18,19 +20,58 @@ fn main() {
     let program_args = cli::program_arguments::ProgramArguments::parse();
     info!("Successfully parsed program arguments.");
 
+    // Interactive mode
+    if program_args.interactive {
+        handle_interactive_mode();
+        std::process::exit(0);
+    }
+
+    // Command-line mode
     match program_args.command_line {
-        Some(_) => {}
+        Some(_) => {
+            handle_command_line_mode();
+            std::process::exit(0);
+        }
         None => debug!("Command-line mode not used."),
     }
 
+    // File-input mode
     match program_args.filename {
-        Some(_) => {}
+        Some(_) => {
+            handle_file_input_mode();
+            std::process::exit(0);
+        }
         None => debug!("File input mode not used."),
     }
 
-    if program_args.interactive {
-        println!("Interactive");
-    } else {
-        debug!("Interactive (REPL) mode not used.");
+    // If no modes given, then default to interactive mode
+    handle_interactive_mode();
+    std::process::exit(0);
+}
+
+pub fn handle_interactive_mode() {
+    let mut line;
+    let stdin = io::stdin();
+
+    loop {
+        line = String::new();
+
+        print!("crisp => ");
+        io::stdout().flush().unwrap();
+        stdin
+            .lock()
+            .read_line(&mut line)
+            .expect("Unable to read line from 'stdin'.");
+
+        let tokens =
+            lexer::lexical_analyzer::tokenize(&line).expect("Unable to tokenize the given input.");
+
+        for token in tokens {
+            println!("{}", token);
+        }
     }
 }
+
+pub fn handle_command_line_mode() {}
+
+pub fn handle_file_input_mode() {}
