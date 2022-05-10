@@ -1,12 +1,13 @@
 use std::fmt;
-use std::num::ParseIntError;
+
+use num_bigint::{BigInt, ParseBigIntError};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Token {
-    Integer(i64),
-    Symbol(String),
     LParen,
     RParen,
+    Integer(BigInt),
+    Symbol(String),
 }
 
 impl fmt::Display for Token {
@@ -20,7 +21,7 @@ impl fmt::Display for Token {
     }
 }
 
-pub fn tokenize(program: &str) -> Result<Vec<Token>, ParseIntError> {
+pub fn tokenize(program: &str) -> Result<Vec<Token>, ParseBigIntError> {
     let program = program.replace("(", " ( ").replace(")", " ) ");
     let words = program.split_whitespace();
     let mut tokens: Vec<Token> = Vec::new();
@@ -30,9 +31,9 @@ pub fn tokenize(program: &str) -> Result<Vec<Token>, ParseIntError> {
             "(" => tokens.push(Token::LParen),
             ")" => tokens.push(Token::RParen),
             _ => {
-                let i = word.parse::<i64>();
-                if i.is_ok() {
-                    tokens.push(Token::Integer(i.unwrap()));
+                let integer = word.parse::<BigInt>();
+                if integer.is_ok() {
+                    tokens.push(Token::Integer(integer.unwrap()));
                 } else {
                     tokens.push(Token::Symbol(word.to_string()));
                 }

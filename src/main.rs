@@ -1,5 +1,7 @@
-mod cli;
-mod lexer;
+mod atom;
+mod lexical_analyzer;
+mod program_arguments;
+mod syntax_parser;
 
 use clap::Parser;
 use log::{debug, error, info};
@@ -17,7 +19,7 @@ fn main() {
     };
 
     // Parse the derived program arguments (CLI)
-    let program_args = cli::program_arguments::ProgramArguments::parse();
+    let program_args = program_arguments::ProgramArguments::parse();
     info!("Successfully parsed program arguments.");
 
     // Interactive mode
@@ -64,7 +66,7 @@ pub fn handle_interactive_mode() {
             .expect("Unable to read line from 'stdin'.");
 
         let tokens =
-            lexer::lexical_analyzer::tokenize(&line).expect("Unable to tokenize the given input.");
+            lexical_analyzer::tokenize(&line).expect("Unable to tokenize the given input.");
 
         for token in tokens {
             println!("{}", token);
