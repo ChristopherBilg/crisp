@@ -1,12 +1,17 @@
 mod atom;
 mod environment;
+mod evaluator;
 mod lexical_analyzer;
 mod program_arguments;
 mod syntax_parser;
 
 use clap::Parser;
 use log::{debug, error, info};
-use std::io::{self, BufRead, Write};
+use std::{
+    cell::RefCell,
+    io::{self, BufRead, Write},
+    rc::Rc,
+};
 
 fn main() {
     // Initialize the logger utility
@@ -32,19 +37,10 @@ fn main() {
     // Command-line mode
     match program_args.command_line {
         Some(_) => {
-            handle_command_line_mode();
+            handle_command_line_mode(program_args.command_line.unwrap());
             std::process::exit(0);
         }
         None => debug!("Command-line mode not used."),
-    }
-
-    // File-input mode
-    match program_args.filename {
-        Some(_) => {
-            handle_file_input_mode();
-            std::process::exit(0);
-        }
-        None => debug!("File input mode not used."),
     }
 
     // If no modes given, then default to interactive mode
@@ -55,6 +51,7 @@ fn main() {
 pub fn handle_interactive_mode() {
     let mut line;
     let stdin = io::stdin();
+    let mut environment = Rc::new(RefCell::new(environment::Environment::new()));
 
     loop {
         line = String::new();
@@ -66,15 +63,46 @@ pub fn handle_interactive_mode() {
             .read_line(&mut line)
             .expect("Unable to read line from 'stdin'.");
 
-        let tokens =
-            lexical_analyzer::tokenize(&line).expect("Unable to tokenize the given input.");
-
-        for token in tokens {
-            println!("{}", token);
+        let value = evaluator::evaluate(&line, &mut environment).unwrap();
+        match value {
+            atom::Atom::Void => {}
+            atom::Atom::Integer(n) => println!("{}", n),
+            atom::Atom::Bool(b) => println!("{}", b),
+            atom::Atom::Symbol(s) => println!("{}", s),
+            atom::Atom::Lambda(params, body) => {
+                println!("Lambda(");
+                for param in params {
+                    println!("{} ", param);
+                }
+                println!(")");
+                for expr in body {
+                    println!(" {}", expr);
+                }
+            }
+            _ => println!("{}", value),
         }
     }
 }
 
-pub fn handle_command_line_mode() {}
+pub fn handle_command_line_mode(string: String) {
+    let mut environment = Rc::new(RefCell::new(environment::Environment::new()));
 
-pub fn handle_file_input_mode() {}
+    let value = evaluator::evaluate(&string, &mut environment).unwrap();
+    match value {
+        atom::Atom::Void => {}
+        atom::Atom::Integer(n) => println!("{}", n),
+        atom::Atom::Bool(b) => println!("{}", b),
+        atom::Atom::Symbol(s) => println!("{}", s),
+        atom::Atom::Lambda(params, body) => {
+            println!("Lambda(");
+            for param in params {
+                println!("{} ", param);
+            }
+            println!(")");
+            for expr in body {
+                println!(" {}", expr);
+            }
+        }
+        _ => println!("{}", value),
+    }
+}
