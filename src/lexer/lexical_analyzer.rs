@@ -24,7 +24,7 @@ pub fn tokenize(program: &str) -> Result<Vec<Token>, ParseIntError> {
     let program = program.replace("(", " ( ").replace(")", " ) ");
     let words = program.split_whitespace();
     let mut tokens: Vec<Token> = Vec::new();
-    
+
     for word in words {
         match word {
             "(" => tokens.push(Token::LParen),
@@ -39,6 +39,6 @@ pub fn tokenize(program: &str) -> Result<Vec<Token>, ParseIntError> {
             }
         }
     }
-    
+
     Ok(tokens)
 }
