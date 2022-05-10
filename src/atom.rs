@@ -4,7 +4,7 @@ use num_bigint::BigInt;
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Atom {
-    Null,
+    Void,
     Integer(BigInt),
     Bool(bool),
     Symbol(String),
@@ -15,7 +15,7 @@ pub enum Atom {
 impl fmt::Display for Atom {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            Atom::Null => write!(f, "Null"),
+            Atom::Void => write!(f, "Void"),
             Atom::Integer(n) => write!(f, "{}", n),
             Atom::Bool(b) => write!(f, "{}", b),
             Atom::Symbol(s) => write!(f, "{}", s),

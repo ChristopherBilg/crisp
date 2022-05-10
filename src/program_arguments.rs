@@ -10,8 +10,4 @@ pub struct ProgramArguments {
     /// Command-line mode
     #[clap(short, long)]
     pub command_line: Option<String>,
-
-    /// File-input mode
-    #[clap(short, long)]
-    pub filename: Option<String>,
 }
