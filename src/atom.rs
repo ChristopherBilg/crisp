@@ -3,7 +3,7 @@ use std::fmt;
 #[derive(Debug, Clone, PartialEq)]
 pub enum Atom {
     Void,
-    Integer(i128),
+    Integer(i64),
     Float(f64),
     Bool(bool),
     Symbol(String),

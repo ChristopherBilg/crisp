@@ -4,7 +4,7 @@ use std::{fmt, num::ParseIntError};
 pub enum Token {
     LParen,
     RParen,
-    Integer(i128),
+    Integer(i64),
     Float(f64),
     Symbol(String),
 }
@@ -31,7 +31,7 @@ pub fn tokenize(program: &str) -> Result<Vec<Token>, ParseIntError> {
             "(" => tokens.push(Token::LParen),
             ")" => tokens.push(Token::RParen),
             _ => {
-                let integer = word.parse::<i128>();
+                let integer = word.parse::<i64>();
                 if integer.is_ok() {
                     tokens.push(Token::Integer(integer.unwrap()));
                     continue;

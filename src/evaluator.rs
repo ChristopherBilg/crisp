@@ -12,27 +12,83 @@ fn evaluate_binary_op(
     if list.len() != 3 {
         return Err(format!("Invalid number of arguments for infix operator"));
     }
+
     let operator = list[0].clone();
-    let left = evaluate_obj(&list[1].clone(), environment)?;
-    let right = evaluate_obj(&list[2].clone(), environment)?;
-    let left_val = match left {
-        Atom::Integer(n) => n,
-        _ => return Err(format!("Left operand must be an integer {:?}", left)),
-    };
-    let right_val = match right {
-        Atom::Integer(n) => n,
-        _ => return Err(format!("Right operand must be an integer {:?}", right)),
-    };
+    let left_value = evaluate_atom(&list[1].clone(), environment)?;
+    let right_value = evaluate_atom(&list[2].clone(), environment)?;
+
     match operator {
         Atom::Symbol(s) => match s.as_str() {
-            "+" => Ok(Atom::Integer(left_val + right_val)),
-            "-" => Ok(Atom::Integer(left_val - right_val)),
-            "*" => Ok(Atom::Integer(left_val * right_val)),
-            "/" => Ok(Atom::Integer(left_val / right_val)),
-            "<" => Ok(Atom::Bool(left_val < right_val)),
-            ">" => Ok(Atom::Bool(left_val > right_val)),
-            "=" => Ok(Atom::Bool(left_val == right_val)),
-            "!=" => Ok(Atom::Bool(left_val != right_val)),
+            "+" => match (left_value, right_value) {
+                (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Integer(l + r)),
+                (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Float(l + r)),
+                (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Float((l as f64) + r)),
+                (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Float(l + (r as f64))),
+                _ => Err(format!("Invalid types for + operator")),
+            },
+            "-" => match (left_value, right_value) {
+                (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Integer(l - r)),
+                (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Float(l - r)),
+                (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Float((l as f64) - r)),
+                (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Float(l - (r as f64))),
+                _ => Err(format!("Invalid types for - operator")),
+            },
+            "*" => match (left_value, right_value) {
+                (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Integer(l * r)),
+                (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Float(l * r)),
+                (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Float((l as f64) * r)),
+                (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Float(l * (r as f64))),
+                _ => Err(format!("Invalid types for * operator")),
+            },
+            "/" => match (left_value, right_value) {
+                (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Integer(l / r)),
+                (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Float(l / r)),
+                (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Float((l as f64) / r)),
+                (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Float(l / (r as f64))),
+                _ => Err(format!("Invalid types for / operator")),
+            },
+            "<" => match (left_value, right_value) {
+                (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l < r)),
+                (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l < r)),
+                (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) < r)),
+                (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l < (r as f64))),
+                _ => Err(format!("Invalid types for < operator")),
+            },
+            "<=" => match (left_value, right_value) {
+                (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l <= r)),
+                (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l <= r)),
+                (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) <= r)),
+                (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l <= (r as f64))),
+                _ => Err(format!("Invalid types for + operator")),
+            },
+            ">" => match (left_value, right_value) {
+                (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l > r)),
+                (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l > r)),
+                (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) > r)),
+                (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l > (r as f64))),
+                _ => Err(format!("Invalid types for < operator")),
+            },
+            ">=" => match (left_value, right_value) {
+                (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l >= r)),
+                (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l >= r)),
+                (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) >= r)),
+                (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l >= (r as f64))),
+                _ => Err(format!("Invalid types for + operator")),
+            },
+            "=" => match (left_value, right_value) {
+                (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l == r)),
+                (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l == r)),
+                (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) == r)),
+                (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l == (r as f64))),
+                _ => Err(format!("Invalid types for < operator")),
+            },
+            "!=" => match (left_value, right_value) {
+                (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l != r)),
+                (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l != r)),
+                (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) != r)),
+                (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l != (r as f64))),
+                _ => Err(format!("Invalid types for + operator")),
+            },
             _ => Err(format!("Invalid infix operator: {}", s)),
         },
         _ => Err(format!("Operator must be a symbol")),
@@ -47,13 +103,13 @@ fn evaluate_define(
         return Err(format!("Invalid number of arguments for define"));
     }
 
-    let sym = match &list[1] {
+    let symbol = match &list[1] {
         Atom::Symbol(s) => s.clone(),
         _ => return Err(format!("Invalid define")),
     };
-    let val = evaluate_obj(&list[2], environment)?;
+    let value = evaluate_atom(&list[2], environment)?;
 
-    environment.borrow_mut().set(&sym, val);
+    environment.borrow_mut().set(&symbol, value);
     Ok(Atom::Void)
 }
 
@@ -65,16 +121,16 @@ fn evaluate_if(
         return Err(format!("Invalid number of arguments for if statement"));
     }
 
-    let cond_obj = evaluate_obj(&list[1], environment)?;
-    let cond = match cond_obj {
+    let cond_atom = evaluate_atom(&list[1], environment)?;
+    let cond = match cond_atom {
         Atom::Bool(b) => b,
         _ => return Err(format!("Condition must be a boolean")),
     };
 
     if cond == true {
-        return evaluate_obj(&list[2], environment);
+        return evaluate_atom(&list[2], environment);
     } else {
-        return evaluate_obj(&list[3], environment);
+        return evaluate_atom(&list[3], environment);
     }
 }
 
@@ -117,11 +173,11 @@ fn evaluate_function_call(
         Atom::Lambda(params, body) => {
             let mut new_env = Rc::new(RefCell::new(Environment::extend(environment.clone())));
             for (i, param) in params.iter().enumerate() {
-                let val = evaluate_obj(&list[i + 1], environment)?;
+                let val = evaluate_atom(&list[i + 1], environment)?;
                 new_env.borrow_mut().set(param, val);
             }
             let new_body = body.clone();
-            return evaluate_obj(&Atom::List(new_body), &mut new_env);
+            return evaluate_atom(&Atom::List(new_body), &mut new_env);
         }
         _ => return Err(format!("Not a lambda: {}", symbol)),
     }
@@ -157,7 +213,7 @@ fn evaluate_list(
         _ => {
             let mut new_list = Vec::new();
             for obj in list {
-                let result = evaluate_obj(obj, environment)?;
+                let result = evaluate_atom(obj, environment)?;
                 match result {
                     Atom::Void => {}
                     _ => new_list.push(result),
@@ -169,7 +225,7 @@ fn evaluate_list(
     }
 }
 
-fn evaluate_obj(atom: &Atom, environment: &mut Rc<RefCell<Environment>>) -> Result<Atom, String> {
+fn evaluate_atom(atom: &Atom, environment: &mut Rc<RefCell<Environment>>) -> Result<Atom, String> {
     match atom {
         Atom::Void => Ok(Atom::Void),
         Atom::List(list) => evaluate_list(list, environment),
@@ -187,5 +243,5 @@ pub fn evaluate(program: &str, environment: &mut Rc<RefCell<Environment>>) -> Re
         return Err(format!("{}", parsed_list.err().unwrap()));
     }
 
-    evaluate_obj(&parsed_list.unwrap(), environment)
+    evaluate_atom(&parsed_list.unwrap(), environment)
 }
