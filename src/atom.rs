@@ -1,11 +1,10 @@
 use std::fmt;
 
-use num_bigint::BigInt;
-
 #[derive(Debug, Clone, PartialEq)]
 pub enum Atom {
     Void,
-    Integer(BigInt),
+    Integer(i128),
+    Float(f64),
     Bool(bool),
     Symbol(String),
     Lambda(Vec<String>, Vec<Atom>),
@@ -17,17 +16,19 @@ impl fmt::Display for Atom {
         match self {
             Atom::Void => write!(f, "Void"),
             Atom::Integer(n) => write!(f, "{}", n),
+            Atom::Float(n) => write!(f, "{}", n),
             Atom::Bool(b) => write!(f, "{}", b),
             Atom::Symbol(s) => write!(f, "{}", s),
             Atom::Lambda(parameters, expressions) => {
                 write!(f, "Lambda(")?;
-                for param in parameters {
-                    write!(f, "{} ", param)?;
+                for parameter in parameters {
+                    write!(f, "{} ", parameter)?;
                 }
                 write!(f, ")")?;
-                for expr in expressions {
-                    write!(f, " {}", expr)?;
+                for expression in expressions {
+                    write!(f, " {}", expression)?;
                 }
+
                 Ok(())
             }
             Atom::List(list) => {
@@ -38,7 +39,9 @@ impl fmt::Display for Atom {
                     }
                     write!(f, "{}", value)?;
                 }
-                write!(f, ")")
+                write!(f, ")")?;
+
+                Ok(())
             }
         }
     }

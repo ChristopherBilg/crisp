@@ -1,12 +1,11 @@
 use crate::atom::Atom;
 use crate::lexical_analyzer::{tokenize, Token};
 
-use std::error::Error;
-use std::fmt;
+use std::{error::Error, fmt};
 
 #[derive(Debug)]
 pub struct ParseError {
-    err: String,
+    pub err: String,
 }
 
 impl fmt::Display for ParseError {
@@ -50,10 +49,9 @@ fn parse_list(tokens: &mut Vec<Token>) -> Result<Atom, ParseError> {
                 err: format!("Did not find enough tokens."),
             });
         }
+
         let t = token.unwrap();
         match t {
-            Token::Integer(n) => list.push(Atom::Integer(n)),
-            Token::Symbol(s) => list.push(Atom::Symbol(s)),
             Token::LParen => {
                 tokens.push(Token::LParen);
                 let sub_list = parse_list(tokens)?;
@@ -62,6 +60,9 @@ fn parse_list(tokens: &mut Vec<Token>) -> Result<Atom, ParseError> {
             Token::RParen => {
                 return Ok(Atom::List(list));
             }
+            Token::Integer(n) => list.push(Atom::Integer(n)),
+            Token::Float(n) => list.push(Atom::Float(n)),
+            Token::Symbol(s) => list.push(Atom::Symbol(s)),
         }
     }
 

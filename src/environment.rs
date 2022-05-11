@@ -7,7 +7,7 @@ use std::rc::Rc;
 #[derive(Debug, PartialEq, Default)]
 pub struct Environment {
     parent: Option<Rc<RefCell<Environment>>>,
-    vars: HashMap<String, Atom>,
+    variables: HashMap<String, Atom>,
 }
 
 impl Environment {
@@ -18,21 +18,21 @@ impl Environment {
     pub fn extend(parent: Rc<RefCell<Self>>) -> Environment {
         Environment {
             parent: Some(parent),
-            vars: HashMap::new(),
+            variables: HashMap::new(),
         }
     }
 
-    pub fn get(&self, name: &str) -> Option<Atom> {
-        match self.vars.get(name) {
+    pub fn get(&self, key: &str) -> Option<Atom> {
+        match self.variables.get(key) {
             Some(value) => Some(value.clone()),
             None => self
                 .parent
                 .as_ref()
-                .and_then(|o| o.borrow().get(name).clone()),
+                .and_then(|env| env.borrow().get(key).clone()),
         }
     }
 
-    pub fn set(&mut self, name: &str, val: Atom) {
-        self.vars.insert(name.to_string(), val);
+    pub fn set(&mut self, key: &str, value: Atom) {
+        self.variables.insert(key.to_string(), value);
     }
 }
