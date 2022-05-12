@@ -6,8 +6,4 @@ pub struct ProgramArguments {
     /// Interactive mode
     #[clap(short, long)]
     pub interactive: bool,
-
-    /// Command-line mode
-    #[clap(short, long)]
-    pub command_line: Option<String>,
 }
