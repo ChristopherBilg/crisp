@@ -134,7 +134,10 @@ fn evaluate_if(
     }
 }
 
-fn evaluate_print(list: &Vec<Atom>, environment: &mut Rc<RefCell<Environment>>) -> Result<Atom, String> {
+fn evaluate_print(
+    list: &Vec<Atom>,
+    environment: &mut Rc<RefCell<Environment>>,
+) -> Result<Atom, String> {
     if list.len() != 2 {
         return Err(format!("Invalid number of arguments for print statement"));
     }
