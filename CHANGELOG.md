@@ -7,6 +7,7 @@
 - Added `quote` function
 - Added `print` function
 - Removed outdated command-line mode (prioritizing REPL-mode for the time being)
+- Cleaned up codebase to make crisp more resilient to crashing (this is done in preparation for the codebase re-write coming soon)
 
 **0.0.2:**
 - MVP implemented for REPL-mode

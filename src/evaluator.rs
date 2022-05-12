@@ -24,6 +24,7 @@ fn evaluate_binary_op(
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Float(l + r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Float((l as f64) + r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Float(l + (r as f64))),
+                (Atom::String(l), Atom::String(r)) => Ok(Atom::String(l.to_owned() + r.as_str())),
                 _ => Err(format!("Invalid types for + operator")),
             },
             "-" => match (left_value, right_value) {
@@ -80,6 +81,7 @@ fn evaluate_binary_op(
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l == r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) == r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l == (r as f64))),
+                (Atom::String(l), Atom::String(r)) => Ok(Atom::Bool(l.eq(&r))),
                 _ => Err(format!("Invalid types for < operator")),
             },
             "!=" => match (left_value, right_value) {
@@ -87,6 +89,7 @@ fn evaluate_binary_op(
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l != r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) != r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l != (r as f64))),
+                (Atom::String(l), Atom::String(r)) => Ok(Atom::Bool(!l.eq(&r))),
                 _ => Err(format!("Invalid types for + operator")),
             },
             _ => Err(format!("Invalid infix operator: {}", s)),
@@ -199,7 +202,7 @@ fn evaluate_print(
     list: &Vec<Atom>,
     environment: &mut Rc<RefCell<Environment>>,
 ) -> Result<Atom, String> {
-    if list.len() != 2 {
+    if list.len() < 2 {
         return Err(format!("Invalid number of arguments for quote statement"));
     }
 
@@ -209,7 +212,7 @@ fn evaluate_print(
 }
 
 fn evaluate_quote(list: &Vec<Atom>) -> Result<Atom, String> {
-    if list.len() != 2 {
+    if list.len() < 2 {
         return Err(format!("Invalid number of arguments for print statement"));
     }
 
