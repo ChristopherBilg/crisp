@@ -134,19 +134,6 @@ fn evaluate_if(
     }
 }
 
-fn evaluate_print(
-    list: &Vec<Atom>,
-    environment: &mut Rc<RefCell<Environment>>,
-) -> Result<Atom, String> {
-    if list.len() != 2 {
-        return Err(format!("Invalid number of arguments for print statement"));
-    }
-
-    println!("{}", evaluate_atom(&list[1], environment).unwrap());
-
-    Ok(Atom::Void)
-}
-
 fn evaluate_function_definition(list: &Vec<Atom>) -> Result<Atom, String> {
     let parameters = match &list[1] {
         Atom::List(list) => {
@@ -208,6 +195,27 @@ fn evaluate_symbol(
     Ok(value.unwrap().clone())
 }
 
+fn evaluate_print(
+    list: &Vec<Atom>,
+    environment: &mut Rc<RefCell<Environment>>,
+) -> Result<Atom, String> {
+    if list.len() != 2 {
+        return Err(format!("Invalid number of arguments for quote statement"));
+    }
+
+    println!("{}", evaluate_atom(&list[1], environment).unwrap());
+
+    Ok(Atom::Void)
+}
+
+fn evaluate_quote(list: &Vec<Atom>) -> Result<Atom, String> {
+    if list.len() != 2 {
+        return Err(format!("Invalid number of arguments for print statement"));
+    }
+
+    Ok(list[1].clone())
+}
+
 fn evaluate_list(
     list: &Vec<Atom>,
     environment: &mut Rc<RefCell<Environment>>,
@@ -222,6 +230,7 @@ fn evaluate_list(
             "if" => evaluate_if(&list, environment),
             "lambda" => evaluate_function_definition(&list),
             "print" => evaluate_print(&list, environment),
+            "quote" => evaluate_quote(&list),
             _ => evaluate_function_call(&s, &list, environment),
         },
         _ => {
