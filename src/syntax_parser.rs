@@ -62,6 +62,7 @@ fn parse_list(tokens: &mut Vec<Token>) -> Result<Atom, ParseError> {
             }
             Token::Integer(n) => list.push(Atom::Integer(n)),
             Token::Float(n) => list.push(Atom::Float(n)),
+            Token::String(s) => list.push(Atom::String(s)),
             Token::Symbol(s) => list.push(Atom::Symbol(s)),
         }
     }
