@@ -52,7 +52,3 @@ We use [rustfmt](https://github.com/rust-lang/rustfmt) and [clippy](https://gith
 ## License
 
 By contributing, you agree that your contributions will be licensed under its [License](./LICENSE.md).
-
-## References
-
-This document was adapted from the open-source contribution guidelines made by [briandk](https://gist.github.com/ChristopherBilg/90f2ae79ecb6af5aa138bf0daee26dc1)
