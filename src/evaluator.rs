@@ -134,6 +134,16 @@ fn evaluate_if(
     }
 }
 
+fn evaluate_print(list: &Vec<Atom>, environment: &mut Rc<RefCell<Environment>>) -> Result<Atom, String> {
+    if list.len() != 2 {
+        return Err(format!("Invalid number of arguments for print statement"));
+    }
+
+    println!("{}", evaluate_atom(&list[1], environment).unwrap());
+
+    Ok(Atom::Void)
+}
+
 fn evaluate_function_definition(list: &Vec<Atom>) -> Result<Atom, String> {
     let parameters = match &list[1] {
         Atom::List(list) => {
@@ -202,12 +212,13 @@ fn evaluate_list(
     let head = &list[0];
     match head {
         Atom::Symbol(s) => match s.as_str() {
-            "+" | "-" | "*" | "/" | "<" | ">" | "=" | "!=" => {
+            "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" => {
                 return evaluate_binary_op(&list, environment);
             }
             "define" => evaluate_define(&list, environment),
             "if" => evaluate_if(&list, environment),
             "lambda" => evaluate_function_definition(&list),
+            "print" => evaluate_print(&list, environment),
             _ => evaluate_function_call(&s, &list, environment),
         },
         _ => {
@@ -228,12 +239,13 @@ fn evaluate_list(
 fn evaluate_atom(atom: &Atom, environment: &mut Rc<RefCell<Environment>>) -> Result<Atom, String> {
     match atom {
         Atom::Void => Ok(Atom::Void),
-        Atom::List(list) => evaluate_list(list, environment),
-        Atom::Lambda(_params, _body) => Ok(Atom::Void),
-        Atom::Bool(_) => Ok(atom.clone()),
         Atom::Integer(i) => Ok(Atom::Integer(i.clone())),
         Atom::Float(f) => Ok(Atom::Float(f.clone())),
+        Atom::Bool(b) => Ok(Atom::Bool(b.clone())),
+        Atom::String(s) => Ok(Atom::String(s.clone())),
         Atom::Symbol(s) => evaluate_symbol(s, environment),
+        Atom::Lambda(_params, _body) => Ok(Atom::Void),
+        Atom::List(list) => evaluate_list(list, environment),
     }
 }
 
