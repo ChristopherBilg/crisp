@@ -151,7 +151,7 @@ fn evaluate_do(
     for _ in 0..count {
         evaluate_atom(&list[2], environment)?;
     }
-    
+
     Ok(Atom::Void)
 }
 
