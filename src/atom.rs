@@ -6,7 +6,6 @@ pub enum Atom {
     Integer(i64),
     Float(f64),
     Bool(bool),
-    String(String),
     Symbol(String),
     Lambda(Vec<String>, Vec<Atom>),
     List(Vec<Atom>),
@@ -19,7 +18,6 @@ impl fmt::Display for Atom {
             Atom::Integer(n) => write!(f, "{}", n),
             Atom::Float(n) => write!(f, "{}", n),
             Atom::Bool(b) => write!(f, "{}", b),
-            Atom::String(s) => write!(f, "{}", s),
             Atom::Symbol(s) => write!(f, "{}", s),
             Atom::Lambda(parameters, expressions) => {
                 write!(f, "Lambda(")?;
