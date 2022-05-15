@@ -41,10 +41,6 @@ pub fn handle_interactive_mode() {
         let value = evaluator::evaluate(&line, &mut environment).unwrap();
         match value {
             atom::Atom::Void => {}
-            atom::Atom::Integer(n) => println!("{}", n),
-            atom::Atom::Float(n) => println!("{}", n),
-            atom::Atom::Bool(b) => println!("{}", b),
-            atom::Atom::Symbol(s) => println!("{}", s),
             atom::Atom::Lambda(params, body) => {
                 print!("Lambda(");
                 for param in params {

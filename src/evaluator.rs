@@ -24,7 +24,6 @@ fn evaluate_binary_op(
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Float(l + r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Float((l as f64) + r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Float(l + (r as f64))),
-                (Atom::String(l), Atom::String(r)) => Ok(Atom::String(l.to_owned() + r.as_str())),
                 _ => Err(format!("Invalid types for + operator")),
             },
             "-" => match (left_value, right_value) {
@@ -81,7 +80,6 @@ fn evaluate_binary_op(
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l == r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) == r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l == (r as f64))),
-                (Atom::String(l), Atom::String(r)) => Ok(Atom::Bool(l.eq(&r))),
                 _ => Err(format!("Invalid types for < operator")),
             },
             "!=" => match (left_value, right_value) {
@@ -89,7 +87,6 @@ fn evaluate_binary_op(
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l != r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) != r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l != (r as f64))),
-                (Atom::String(l), Atom::String(r)) => Ok(Atom::Bool(!l.eq(&r))),
                 _ => Err(format!("Invalid types for + operator")),
             },
             _ => Err(format!("Invalid infix operator: {}", s)),
@@ -135,6 +132,27 @@ fn evaluate_if(
     } else {
         return evaluate_atom(&list[3], environment);
     }
+}
+
+fn evaluate_do(
+    list: &Vec<Atom>,
+    environment: &mut Rc<RefCell<Environment>>,
+) -> Result<Atom, String> {
+    if list.len() < 3 {
+        return Err(format!("Invalid number of arguments for do statement"));
+    }
+
+    let count_atom = evaluate_atom(&list[1], environment)?;
+    let count = match count_atom {
+        Atom::Integer(n) => n,
+        _ => return Err(format!("Condition must be a boolean")),
+    };
+
+    for _ in 0..count {
+        evaluate_atom(&list[2], environment)?;
+    }
+    
+    Ok(Atom::Void)
 }
 
 fn evaluate_function_definition(list: &Vec<Atom>) -> Result<Atom, String> {
@@ -231,6 +249,7 @@ fn evaluate_list(
             }
             "define" => evaluate_define(&list, environment),
             "if" => evaluate_if(&list, environment),
+            "do" => evaluate_do(&list, environment),
             "lambda" => evaluate_function_definition(&list),
             "print" => evaluate_print(&list, environment),
             "quote" => evaluate_quote(&list),
@@ -257,7 +276,6 @@ fn evaluate_atom(atom: &Atom, environment: &mut Rc<RefCell<Environment>>) -> Res
         Atom::Integer(i) => Ok(Atom::Integer(i.clone())),
         Atom::Float(f) => Ok(Atom::Float(f.clone())),
         Atom::Bool(b) => Ok(Atom::Bool(b.clone())),
-        Atom::String(s) => Ok(Atom::String(s.clone())),
         Atom::Symbol(s) => evaluate_symbol(s, environment),
         Atom::Lambda(_params, _body) => Ok(Atom::Void),
         Atom::List(list) => evaluate_list(list, environment),
@@ -266,9 +284,6 @@ fn evaluate_atom(atom: &Atom, environment: &mut Rc<RefCell<Environment>>) -> Res
 
 pub fn evaluate(program: &str, environment: &mut Rc<RefCell<Environment>>) -> Result<Atom, String> {
     let parsed_list = parse(program);
-    if parsed_list.is_err() {
-        return Err(format!("{}", parsed_list.err().unwrap()));
-    }
 
-    evaluate_atom(&parsed_list.unwrap(), environment)
+    evaluate_atom(&parsed_list, environment)
 }
