@@ -304,7 +304,7 @@
     <span class="ident">environment</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Environment</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Atom</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">list</span>.<span class="ident">len</span>() <span class="op">!</span><span class="op">=</span> <span class="number">3</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid number of arguments for infix operator&quot;</span>));
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid number of arguments for infix operator&quot;</span>.<span class="ident">to_string</span>());
     }
 
     <span class="kw">let</span> <span class="ident">operator</span> <span class="op">=</span> <span class="ident">list</span>[<span class="number">0</span>].<span class="ident">clone</span>();
@@ -318,74 +318,74 @@
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>(<span class="ident">l</span> <span class="op">+</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>((<span class="ident">l</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">+</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>(<span class="ident">l</span> <span class="op">+</span> (<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f64</span>))),
-                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid types for + operator&quot;</span>)),
+                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid types for + operator&quot;</span>.<span class="ident">to_string</span>()),
             },
             <span class="string">&quot;-&quot;</span> =&gt; <span class="kw">match</span> (<span class="ident">left_value</span>, <span class="ident">right_value</span>) {
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Integer</span>(<span class="ident">l</span> <span class="op">-</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>(<span class="ident">l</span> <span class="op">-</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>((<span class="ident">l</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">-</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>(<span class="ident">l</span> <span class="op">-</span> (<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f64</span>))),
-                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid types for - operator&quot;</span>)),
+                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid types for - operator&quot;</span>.<span class="ident">to_string</span>()),
             },
             <span class="string">&quot;*&quot;</span> =&gt; <span class="kw">match</span> (<span class="ident">left_value</span>, <span class="ident">right_value</span>) {
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Integer</span>(<span class="ident">l</span> <span class="op">*</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>(<span class="ident">l</span> <span class="op">*</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>((<span class="ident">l</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">*</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>(<span class="ident">l</span> <span class="op">*</span> (<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f64</span>))),
-                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid types for * operator&quot;</span>)),
+                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid types for * operator&quot;</span>.<span class="ident">to_string</span>()),
             },
             <span class="string">&quot;/&quot;</span> =&gt; <span class="kw">match</span> (<span class="ident">left_value</span>, <span class="ident">right_value</span>) {
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Integer</span>(<span class="ident">l</span> <span class="op">/</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>(<span class="ident">l</span> <span class="op">/</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>((<span class="ident">l</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">/</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>(<span class="ident">l</span> <span class="op">/</span> (<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f64</span>))),
-                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid types for / operator&quot;</span>)),
+                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid types for / operator&quot;</span>.<span class="ident">to_string</span>()),
             },
             <span class="string">&quot;&lt;&quot;</span> =&gt; <span class="kw">match</span> (<span class="ident">left_value</span>, <span class="ident">right_value</span>) {
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&lt;</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&lt;</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>((<span class="ident">l</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">&lt;</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&lt;</span> (<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f64</span>))),
-                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid types for &lt; operator&quot;</span>)),
+                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid types for &lt; operator&quot;</span>.<span class="ident">to_string</span>()),
             },
             <span class="string">&quot;&lt;=&quot;</span> =&gt; <span class="kw">match</span> (<span class="ident">left_value</span>, <span class="ident">right_value</span>) {
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>((<span class="ident">l</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">&lt;</span><span class="op">=</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&lt;</span><span class="op">=</span> (<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f64</span>))),
-                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid types for + operator&quot;</span>)),
+                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid types for + operator&quot;</span>.<span class="ident">to_string</span>()),
             },
             <span class="string">&quot;&gt;&quot;</span> =&gt; <span class="kw">match</span> (<span class="ident">left_value</span>, <span class="ident">right_value</span>) {
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&gt;</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&gt;</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>((<span class="ident">l</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">&gt;</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&gt;</span> (<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f64</span>))),
-                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid types for &lt; operator&quot;</span>)),
+                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid types for &lt; operator&quot;</span>.<span class="ident">to_string</span>()),
             },
             <span class="string">&quot;&gt;=&quot;</span> =&gt; <span class="kw">match</span> (<span class="ident">left_value</span>, <span class="ident">right_value</span>) {
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>((<span class="ident">l</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">&gt;</span><span class="op">=</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">&gt;</span><span class="op">=</span> (<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f64</span>))),
-                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid types for + operator&quot;</span>)),
+                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid types for + operator&quot;</span>.<span class="ident">to_string</span>()),
             },
             <span class="string">&quot;=&quot;</span> =&gt; <span class="kw">match</span> (<span class="ident">left_value</span>, <span class="ident">right_value</span>) {
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">==</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">==</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>((<span class="ident">l</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">==</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">==</span> (<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f64</span>))),
-                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid types for &lt; operator&quot;</span>)),
+                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid types for &lt; operator&quot;</span>.<span class="ident">to_string</span>()),
             },
             <span class="string">&quot;!=&quot;</span> =&gt; <span class="kw">match</span> (<span class="ident">left_value</span>, <span class="ident">right_value</span>) {
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">!</span><span class="op">=</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">!</span><span class="op">=</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Integer</span>(<span class="ident">l</span>), <span class="ident">Atom::Float</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>((<span class="ident">l</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">!</span><span class="op">=</span> <span class="ident">r</span>)),
                 (<span class="ident">Atom::Float</span>(<span class="ident">l</span>), <span class="ident">Atom::Integer</span>(<span class="ident">r</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">l</span> <span class="op">!</span><span class="op">=</span> (<span class="ident">r</span> <span class="kw">as</span> <span class="ident">f64</span>))),
-                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid types for + operator&quot;</span>)),
+                <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid types for + operator&quot;</span>.<span class="ident">to_string</span>()),
             },
             <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid infix operator: {}&quot;</span>, <span class="ident">s</span>)),
         },
-        <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Operator must be a symbol&quot;</span>)),
+        <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="string">&quot;Operator must be a symbol&quot;</span>.<span class="ident">to_string</span>()),
     }
 }
 
@@ -394,12 +394,12 @@
     <span class="ident">environment</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Environment</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Atom</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">list</span>.<span class="ident">len</span>() <span class="op">!</span><span class="op">=</span> <span class="number">3</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid number of arguments for define&quot;</span>));
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid number of arguments for define&quot;</span>.<span class="ident">to_string</span>());
     }
 
     <span class="kw">let</span> <span class="ident">symbol</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">1</span>] {
         <span class="ident">Atom::Symbol</span>(<span class="ident">s</span>) =&gt; <span class="ident">s</span>.<span class="ident">clone</span>(),
-        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid define&quot;</span>)),
+        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid define&quot;</span>.<span class="ident">to_string</span>()),
     };
     <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">2</span>], <span class="ident">environment</span>)<span class="question-mark">?</span>;
 
@@ -412,19 +412,19 @@
     <span class="ident">environment</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Environment</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Atom</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">list</span>.<span class="ident">len</span>() <span class="op">!</span><span class="op">=</span> <span class="number">4</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid number of arguments for if statement&quot;</span>));
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid number of arguments for if statement&quot;</span>.<span class="ident">to_string</span>());
     }
 
     <span class="kw">let</span> <span class="ident">cond_atom</span> <span class="op">=</span> <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">1</span>], <span class="ident">environment</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">cond</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">cond_atom</span> {
         <span class="ident">Atom::Bool</span>(<span class="ident">b</span>) =&gt; <span class="ident">b</span>,
-        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Condition must be a boolean&quot;</span>)),
+        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Condition must be a boolean&quot;</span>.<span class="ident">to_string</span>()),
     };
 
-    <span class="kw">if</span> <span class="ident">cond</span> <span class="op">==</span> <span class="bool-val">true</span> {
-        <span class="kw">return</span> <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">2</span>], <span class="ident">environment</span>);
+    <span class="kw">if</span> <span class="ident">cond</span> {
+        <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">2</span>], <span class="ident">environment</span>)
     } <span class="kw">else</span> {
-        <span class="kw">return</span> <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">3</span>], <span class="ident">environment</span>);
+        <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">3</span>], <span class="ident">environment</span>)
     }
 }
 
@@ -433,13 +433,13 @@
     <span class="ident">environment</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Environment</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Atom</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">list</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="number">3</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid number of arguments for do statement&quot;</span>));
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid number of arguments for do statement&quot;</span>.<span class="ident">to_string</span>());
     }
 
     <span class="kw">let</span> <span class="ident">count_atom</span> <span class="op">=</span> <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">1</span>], <span class="ident">environment</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">count</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">count_atom</span> {
         <span class="ident">Atom::Integer</span>(<span class="ident">n</span>) =&gt; <span class="ident">n</span>,
-        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Condition must be a boolean&quot;</span>)),
+        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Condition must be a boolean&quot;</span>.<span class="ident">to_string</span>()),
     };
 
     <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">count</span> {
@@ -449,25 +449,25 @@
     <span class="prelude-val">Ok</span>(<span class="ident">Atom::Void</span>)
 }
 
-<span class="kw">fn</span> <span class="ident">evaluate_function_definition</span>(<span class="ident">list</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Atom</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Atom</span>, <span class="ident">String</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">evaluate_function_definition</span>(<span class="ident">list</span>: <span class="kw-2">&amp;</span>[<span class="ident">Atom</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Atom</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">parameters</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">1</span>] {
         <span class="ident">Atom::List</span>(<span class="ident">list</span>) =&gt; {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">parameters</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
             <span class="kw">for</span> <span class="ident">param</span> <span class="kw">in</span> <span class="ident">list</span> {
                 <span class="kw">match</span> <span class="ident">param</span> {
                     <span class="ident">Atom::Symbol</span>(<span class="ident">s</span>) =&gt; <span class="ident">parameters</span>.<span class="ident">push</span>(<span class="ident">s</span>.<span class="ident">clone</span>()),
-                    <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid lambda parameter&quot;</span>)),
+                    <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid lambda parameter&quot;</span>.<span class="ident">to_string</span>()),
                 }
             }
 
             <span class="ident">parameters</span>
         }
-        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid lambda&quot;</span>)),
+        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid lambda&quot;</span>.<span class="ident">to_string</span>()),
     };
 
     <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">2</span>] {
         <span class="ident">Atom::List</span>(<span class="ident">list</span>) =&gt; <span class="ident">list</span>.<span class="ident">clone</span>(),
-        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid lambda&quot;</span>)),
+        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid lambda&quot;</span>.<span class="ident">to_string</span>()),
     };
 
     <span class="prelude-val">Ok</span>(<span class="ident">Atom::Lambda</span>(<span class="ident">parameters</span>, <span class="ident">body</span>))
@@ -475,7 +475,7 @@
 
 <span class="kw">fn</span> <span class="ident">evaluate_function_call</span>(
     <span class="ident">symbol</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-    <span class="ident">list</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Atom</span><span class="op">&gt;</span>,
+    <span class="ident">list</span>: <span class="kw-2">&amp;</span>[<span class="ident">Atom</span>],
     <span class="ident">environment</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Environment</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Atom</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">lamdba</span> <span class="op">=</span> <span class="ident">environment</span>.<span class="ident">borrow_mut</span>().<span class="ident">get</span>(<span class="ident">symbol</span>);
@@ -491,8 +491,8 @@
                 <span class="kw">let</span> <span class="ident">val</span> <span class="op">=</span> <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>], <span class="ident">environment</span>)<span class="question-mark">?</span>;
                 <span class="ident">new_env</span>.<span class="ident">borrow_mut</span>().<span class="ident">set</span>(<span class="ident">param</span>, <span class="ident">val</span>);
             }
-            <span class="kw">let</span> <span class="ident">new_body</span> <span class="op">=</span> <span class="ident">body</span>.<span class="ident">clone</span>();
-            <span class="kw">return</span> <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">Atom::List</span>(<span class="ident">new_body</span>), <span class="kw-2">&amp;mut</span> <span class="ident">new_env</span>);
+            <span class="kw">let</span> <span class="ident">new_body</span> <span class="op">=</span> <span class="ident">body</span>;
+            <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">Atom::List</span>(<span class="ident">new_body</span>), <span class="kw-2">&amp;mut</span> <span class="ident">new_env</span>)
         }
         <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Not a lambda: {}&quot;</span>, <span class="ident">symbol</span>)),
     }
@@ -507,7 +507,7 @@
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Unbound symbol: {}&quot;</span>, <span class="ident">symbol</span>));
     }
 
-    <span class="prelude-val">Ok</span>(<span class="ident">value</span>.<span class="ident">unwrap</span>().<span class="ident">clone</span>())
+    <span class="prelude-val">Ok</span>(<span class="ident">value</span>.<span class="ident">unwrap</span>())
 }
 
 <span class="kw">fn</span> <span class="ident">evaluate_print</span>(
@@ -515,7 +515,7 @@
     <span class="ident">environment</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Environment</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Atom</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">list</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="number">2</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid number of arguments for quote statement&quot;</span>));
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid number of arguments for quote statement&quot;</span>.<span class="ident">to_string</span>());
     }
 
     <span class="macro">println!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">evaluate_atom</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>[<span class="number">1</span>], <span class="ident">environment</span>).<span class="ident">unwrap</span>());
@@ -525,7 +525,7 @@
 
 <span class="kw">fn</span> <span class="ident">evaluate_quote</span>(<span class="ident">list</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Atom</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Atom</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">list</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="number">2</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Invalid number of arguments for print statement&quot;</span>));
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Invalid number of arguments for print statement&quot;</span>.<span class="ident">to_string</span>());
     }
 
     <span class="prelude-val">Ok</span>(<span class="ident">list</span>[<span class="number">1</span>].<span class="ident">clone</span>())
@@ -539,15 +539,15 @@
     <span class="kw">match</span> <span class="ident">head</span> {
         <span class="ident">Atom::Symbol</span>(<span class="ident">s</span>) =&gt; <span class="kw">match</span> <span class="ident">s</span>.<span class="ident">as_str</span>() {
             <span class="string">&quot;+&quot;</span> <span class="op">|</span> <span class="string">&quot;-&quot;</span> <span class="op">|</span> <span class="string">&quot;*&quot;</span> <span class="op">|</span> <span class="string">&quot;/&quot;</span> <span class="op">|</span> <span class="string">&quot;&lt;&quot;</span> <span class="op">|</span> <span class="string">&quot;&lt;=&quot;</span> <span class="op">|</span> <span class="string">&quot;&gt;&quot;</span> <span class="op">|</span> <span class="string">&quot;&gt;=&quot;</span> <span class="op">|</span> <span class="string">&quot;=&quot;</span> <span class="op">|</span> <span class="string">&quot;!=&quot;</span> =&gt; {
-                <span class="kw">return</span> <span class="ident">evaluate_binary_op</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>, <span class="ident">environment</span>);
+                <span class="ident">evaluate_binary_op</span>(<span class="ident">list</span>, <span class="ident">environment</span>)
             }
-            <span class="string">&quot;define&quot;</span> =&gt; <span class="ident">evaluate_define</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>, <span class="ident">environment</span>),
-            <span class="string">&quot;if&quot;</span> =&gt; <span class="ident">evaluate_if</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>, <span class="ident">environment</span>),
-            <span class="string">&quot;do&quot;</span> =&gt; <span class="ident">evaluate_do</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>, <span class="ident">environment</span>),
-            <span class="string">&quot;lambda&quot;</span> =&gt; <span class="ident">evaluate_function_definition</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>),
-            <span class="string">&quot;print&quot;</span> =&gt; <span class="ident">evaluate_print</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>, <span class="ident">environment</span>),
-            <span class="string">&quot;quote&quot;</span> =&gt; <span class="ident">evaluate_quote</span>(<span class="kw-2">&amp;</span><span class="ident">list</span>),
-            <span class="kw">_</span> =&gt; <span class="ident">evaluate_function_call</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>, <span class="kw-2">&amp;</span><span class="ident">list</span>, <span class="ident">environment</span>),
+            <span class="string">&quot;define&quot;</span> =&gt; <span class="ident">evaluate_define</span>(<span class="ident">list</span>, <span class="ident">environment</span>),
+            <span class="string">&quot;if&quot;</span> =&gt; <span class="ident">evaluate_if</span>(<span class="ident">list</span>, <span class="ident">environment</span>),
+            <span class="string">&quot;do&quot;</span> =&gt; <span class="ident">evaluate_do</span>(<span class="ident">list</span>, <span class="ident">environment</span>),
+            <span class="string">&quot;lambda&quot;</span> =&gt; <span class="ident">evaluate_function_definition</span>(<span class="ident">list</span>),
+            <span class="string">&quot;print&quot;</span> =&gt; <span class="ident">evaluate_print</span>(<span class="ident">list</span>, <span class="ident">environment</span>),
+            <span class="string">&quot;quote&quot;</span> =&gt; <span class="ident">evaluate_quote</span>(<span class="ident">list</span>),
+            <span class="kw">_</span> =&gt; <span class="ident">evaluate_function_call</span>(<span class="ident">s</span>, <span class="ident">list</span>, <span class="ident">environment</span>),
         },
         <span class="kw">_</span> =&gt; {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_list</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
@@ -567,9 +567,9 @@
 <span class="kw">fn</span> <span class="ident">evaluate_atom</span>(<span class="ident">atom</span>: <span class="kw-2">&amp;</span><span class="ident">Atom</span>, <span class="ident">environment</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Environment</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Atom</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">atom</span> {
         <span class="ident">Atom::Void</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Void</span>),
-        <span class="ident">Atom::Integer</span>(<span class="ident">i</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Integer</span>(<span class="ident">i</span>.<span class="ident">clone</span>())),
-        <span class="ident">Atom::Float</span>(<span class="ident">f</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>(<span class="ident">f</span>.<span class="ident">clone</span>())),
-        <span class="ident">Atom::Bool</span>(<span class="ident">b</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="ident">b</span>.<span class="ident">clone</span>())),
+        <span class="ident">Atom::Integer</span>(<span class="ident">i</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Integer</span>(<span class="kw-2">*</span><span class="ident">i</span>)),
+        <span class="ident">Atom::Float</span>(<span class="ident">f</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Float</span>(<span class="kw-2">*</span><span class="ident">f</span>)),
+        <span class="ident">Atom::Bool</span>(<span class="ident">b</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Bool</span>(<span class="kw-2">*</span><span class="ident">b</span>)),
         <span class="ident">Atom::Symbol</span>(<span class="ident">s</span>) =&gt; <span class="ident">evaluate_symbol</span>(<span class="ident">s</span>, <span class="ident">environment</span>),
         <span class="ident">Atom::Lambda</span>(<span class="ident">_params</span>, <span class="ident">_body</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Atom::Void</span>),
         <span class="ident">Atom::List</span>(<span class="ident">list</span>) =&gt; <span class="ident">evaluate_list</span>(<span class="ident">list</span>, <span class="ident">environment</span>),
