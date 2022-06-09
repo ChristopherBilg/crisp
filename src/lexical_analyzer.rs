@@ -14,13 +14,15 @@ impl fmt::Display for Token {
         match self {
             Token::LParen => write!(f, "("),
             Token::RParen => write!(f, ")"),
-            _ => write!(f, "{}", self),
+            Token::Integer(n) => write!(f, "{}", n),
+            Token::Float(n) => write!(f, "{}", n),
+            Token::Symbol(s) => write!(f, "{}", s),
         }
     }
 }
 
 pub fn tokenize(program: &str) -> Vec<Token> {
-    let program = program.replace("(", " ( ").replace(")", " ) ");
+    let program = program.replace('(', " ( ").replace(')', " ) ");
     let words = program.split_whitespace();
     let mut tokens: Vec<Token> = Vec::new();
 
@@ -30,14 +32,14 @@ pub fn tokenize(program: &str) -> Vec<Token> {
             ")" => tokens.push(Token::RParen),
             _ => {
                 let integer = word.parse::<i64>();
-                if integer.is_ok() {
-                    tokens.push(Token::Integer(integer.unwrap()));
+                if let Ok(integer) = integer {
+                    tokens.push(Token::Integer(integer));
                     continue;
                 }
 
                 let float = word.parse::<f64>();
-                if float.is_ok() {
-                    tokens.push(Token::Float(float.unwrap()));
+                if let Ok(float) = float {
+                    tokens.push(Token::Float(float));
                     continue;
                 }
 

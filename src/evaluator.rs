@@ -10,7 +10,7 @@ fn evaluate_binary_op(
     environment: &mut Rc<RefCell<Environment>>,
 ) -> Result<Atom, String> {
     if list.len() != 3 {
-        return Err(format!("Invalid number of arguments for infix operator"));
+        return Err("Invalid number of arguments for infix operator".to_string());
     }
 
     let operator = list[0].clone();
@@ -24,74 +24,74 @@ fn evaluate_binary_op(
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Float(l + r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Float((l as f64) + r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Float(l + (r as f64))),
-                _ => Err(format!("Invalid types for + operator")),
+                _ => Err("Invalid types for + operator".to_string()),
             },
             "-" => match (left_value, right_value) {
                 (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Integer(l - r)),
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Float(l - r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Float((l as f64) - r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Float(l - (r as f64))),
-                _ => Err(format!("Invalid types for - operator")),
+                _ => Err("Invalid types for - operator".to_string()),
             },
             "*" => match (left_value, right_value) {
                 (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Integer(l * r)),
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Float(l * r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Float((l as f64) * r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Float(l * (r as f64))),
-                _ => Err(format!("Invalid types for * operator")),
+                _ => Err("Invalid types for * operator".to_string()),
             },
             "/" => match (left_value, right_value) {
                 (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Integer(l / r)),
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Float(l / r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Float((l as f64) / r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Float(l / (r as f64))),
-                _ => Err(format!("Invalid types for / operator")),
+                _ => Err("Invalid types for / operator".to_string()),
             },
             "<" => match (left_value, right_value) {
                 (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l < r)),
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l < r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) < r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l < (r as f64))),
-                _ => Err(format!("Invalid types for < operator")),
+                _ => Err("Invalid types for < operator".to_string()),
             },
             "<=" => match (left_value, right_value) {
                 (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l <= r)),
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l <= r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) <= r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l <= (r as f64))),
-                _ => Err(format!("Invalid types for + operator")),
+                _ => Err("Invalid types for + operator".to_string()),
             },
             ">" => match (left_value, right_value) {
                 (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l > r)),
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l > r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) > r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l > (r as f64))),
-                _ => Err(format!("Invalid types for < operator")),
+                _ => Err("Invalid types for < operator".to_string()),
             },
             ">=" => match (left_value, right_value) {
                 (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l >= r)),
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l >= r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) >= r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l >= (r as f64))),
-                _ => Err(format!("Invalid types for + operator")),
+                _ => Err("Invalid types for + operator".to_string()),
             },
             "=" => match (left_value, right_value) {
                 (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l == r)),
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l == r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) == r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l == (r as f64))),
-                _ => Err(format!("Invalid types for < operator")),
+                _ => Err("Invalid types for < operator".to_string()),
             },
             "!=" => match (left_value, right_value) {
                 (Atom::Integer(l), Atom::Integer(r)) => Ok(Atom::Bool(l != r)),
                 (Atom::Float(l), Atom::Float(r)) => Ok(Atom::Bool(l != r)),
                 (Atom::Integer(l), Atom::Float(r)) => Ok(Atom::Bool((l as f64) != r)),
                 (Atom::Float(l), Atom::Integer(r)) => Ok(Atom::Bool(l != (r as f64))),
-                _ => Err(format!("Invalid types for + operator")),
+                _ => Err("Invalid types for + operator".to_string()),
             },
             _ => Err(format!("Invalid infix operator: {}", s)),
         },
-        _ => Err(format!("Operator must be a symbol")),
+        _ => Err("Operator must be a symbol".to_string()),
     }
 }
 
@@ -100,12 +100,12 @@ fn evaluate_define(
     environment: &mut Rc<RefCell<Environment>>,
 ) -> Result<Atom, String> {
     if list.len() != 3 {
-        return Err(format!("Invalid number of arguments for define"));
+        return Err("Invalid number of arguments for define".to_string());
     }
 
     let symbol = match &list[1] {
         Atom::Symbol(s) => s.clone(),
-        _ => return Err(format!("Invalid define")),
+        _ => return Err("Invalid define".to_string()),
     };
     let value = evaluate_atom(&list[2], environment)?;
 
@@ -118,19 +118,19 @@ fn evaluate_if(
     environment: &mut Rc<RefCell<Environment>>,
 ) -> Result<Atom, String> {
     if list.len() != 4 {
-        return Err(format!("Invalid number of arguments for if statement"));
+        return Err("Invalid number of arguments for if statement".to_string());
     }
 
     let cond_atom = evaluate_atom(&list[1], environment)?;
     let cond = match cond_atom {
         Atom::Bool(b) => b,
-        _ => return Err(format!("Condition must be a boolean")),
+        _ => return Err("Condition must be a boolean".to_string()),
     };
 
-    if cond == true {
-        return evaluate_atom(&list[2], environment);
+    if cond {
+        evaluate_atom(&list[2], environment)
     } else {
-        return evaluate_atom(&list[3], environment);
+        evaluate_atom(&list[3], environment)
     }
 }
 
@@ -139,13 +139,13 @@ fn evaluate_do(
     environment: &mut Rc<RefCell<Environment>>,
 ) -> Result<Atom, String> {
     if list.len() < 3 {
-        return Err(format!("Invalid number of arguments for do statement"));
+        return Err("Invalid number of arguments for do statement".to_string());
     }
 
     let count_atom = evaluate_atom(&list[1], environment)?;
     let count = match count_atom {
         Atom::Integer(n) => n,
-        _ => return Err(format!("Condition must be a boolean")),
+        _ => return Err("Condition must be a boolean".to_string()),
     };
 
     for _ in 0..count {
@@ -155,25 +155,25 @@ fn evaluate_do(
     Ok(Atom::Void)
 }
 
-fn evaluate_function_definition(list: &Vec<Atom>) -> Result<Atom, String> {
+fn evaluate_function_definition(list: &[Atom]) -> Result<Atom, String> {
     let parameters = match &list[1] {
         Atom::List(list) => {
             let mut parameters = Vec::new();
             for param in list {
                 match param {
                     Atom::Symbol(s) => parameters.push(s.clone()),
-                    _ => return Err(format!("Invalid lambda parameter")),
+                    _ => return Err("Invalid lambda parameter".to_string()),
                 }
             }
 
             parameters
         }
-        _ => return Err(format!("Invalid lambda")),
+        _ => return Err("Invalid lambda".to_string()),
     };
 
     let body = match &list[2] {
         Atom::List(list) => list.clone(),
-        _ => return Err(format!("Invalid lambda")),
+        _ => return Err("Invalid lambda".to_string()),
     };
 
     Ok(Atom::Lambda(parameters, body))
@@ -181,7 +181,7 @@ fn evaluate_function_definition(list: &Vec<Atom>) -> Result<Atom, String> {
 
 fn evaluate_function_call(
     symbol: &str,
-    list: &Vec<Atom>,
+    list: &[Atom],
     environment: &mut Rc<RefCell<Environment>>,
 ) -> Result<Atom, String> {
     let lamdba = environment.borrow_mut().get(symbol);
@@ -197,8 +197,8 @@ fn evaluate_function_call(
                 let val = evaluate_atom(&list[i + 1], environment)?;
                 new_env.borrow_mut().set(param, val);
             }
-            let new_body = body.clone();
-            return evaluate_atom(&Atom::List(new_body), &mut new_env);
+            let new_body = body;
+            evaluate_atom(&Atom::List(new_body), &mut new_env)
         }
         _ => return Err(format!("Not a lambda: {}", symbol)),
     }
@@ -213,7 +213,7 @@ fn evaluate_symbol(
         return Err(format!("Unbound symbol: {}", symbol));
     }
 
-    Ok(value.unwrap().clone())
+    Ok(value.unwrap())
 }
 
 fn evaluate_print(
@@ -221,7 +221,7 @@ fn evaluate_print(
     environment: &mut Rc<RefCell<Environment>>,
 ) -> Result<Atom, String> {
     if list.len() < 2 {
-        return Err(format!("Invalid number of arguments for quote statement"));
+        return Err("Invalid number of arguments for quote statement".to_string());
     }
 
     println!("{}", evaluate_atom(&list[1], environment).unwrap());
@@ -231,7 +231,7 @@ fn evaluate_print(
 
 fn evaluate_quote(list: &Vec<Atom>) -> Result<Atom, String> {
     if list.len() < 2 {
-        return Err(format!("Invalid number of arguments for print statement"));
+        return Err("Invalid number of arguments for print statement".to_string());
     }
 
     Ok(list[1].clone())
@@ -245,15 +245,15 @@ fn evaluate_list(
     match head {
         Atom::Symbol(s) => match s.as_str() {
             "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" => {
-                return evaluate_binary_op(&list, environment);
+                evaluate_binary_op(list, environment)
             }
-            "define" => evaluate_define(&list, environment),
-            "if" => evaluate_if(&list, environment),
-            "do" => evaluate_do(&list, environment),
-            "lambda" => evaluate_function_definition(&list),
-            "print" => evaluate_print(&list, environment),
-            "quote" => evaluate_quote(&list),
-            _ => evaluate_function_call(&s, &list, environment),
+            "define" => evaluate_define(list, environment),
+            "if" => evaluate_if(list, environment),
+            "do" => evaluate_do(list, environment),
+            "lambda" => evaluate_function_definition(list),
+            "print" => evaluate_print(list, environment),
+            "quote" => evaluate_quote(list),
+            _ => evaluate_function_call(s, list, environment),
         },
         _ => {
             let mut new_list = Vec::new();
@@ -273,9 +273,9 @@ fn evaluate_list(
 fn evaluate_atom(atom: &Atom, environment: &mut Rc<RefCell<Environment>>) -> Result<Atom, String> {
     match atom {
         Atom::Void => Ok(Atom::Void),
-        Atom::Integer(i) => Ok(Atom::Integer(i.clone())),
-        Atom::Float(f) => Ok(Atom::Float(f.clone())),
-        Atom::Bool(b) => Ok(Atom::Bool(b.clone())),
+        Atom::Integer(i) => Ok(Atom::Integer(*i)),
+        Atom::Float(f) => Ok(Atom::Float(*f)),
+        Atom::Bool(b) => Ok(Atom::Bool(*b)),
         Atom::Symbol(s) => evaluate_symbol(s, environment),
         Atom::Lambda(_params, _body) => Ok(Atom::Void),
         Atom::List(list) => evaluate_list(list, environment),

@@ -25,10 +25,7 @@ impl Environment {
     pub fn get(&self, key: &str) -> Option<Atom> {
         match self.variables.get(key) {
             Some(value) => Some(value.clone()),
-            None => self
-                .parent
-                .as_ref()
-                .and_then(|env| env.borrow().get(key).clone()),
+            None => self.parent.as_ref().and_then(|env| env.borrow().get(key)),
         }
     }
 

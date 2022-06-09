@@ -5,8 +5,7 @@ pub fn parse(program: &str) -> Atom {
     let token_result = tokenize(program);
     let mut tokens = token_result.into_iter().rev().collect::<Vec<_>>();
 
-    let parsed_list = parse_list(&mut tokens);
-    parsed_list
+    parse_list(&mut tokens)
 }
 
 fn parse_list(tokens: &mut Vec<Token>) -> Atom {
