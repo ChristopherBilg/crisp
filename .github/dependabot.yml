@@ -6,7 +6,7 @@ updates:
   - package-ecosystem: "cargo"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
 #    ignore:
 #        - dependency-name: "clap"
     rebase-strategy: "disabled"

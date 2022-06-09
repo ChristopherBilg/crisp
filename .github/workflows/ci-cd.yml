@@ -3,7 +3,7 @@ name: CI-CD
 on:
   pull_request:
     branches:
-    - crisp-rust
+    - master
 
 jobs:
   build:

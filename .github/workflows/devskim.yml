@@ -7,7 +7,7 @@ name: DevSkim
 
 on:
   pull_request:
-    branches: [ crisp-rust ]
+    branches: [ master ]
   schedule:
     - cron: '0 0 * * 1'
 

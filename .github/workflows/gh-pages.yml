@@ -3,7 +3,7 @@ name: mdBook
 on:
   push:
     branches:
-      - crisp-rust
+      - master
 
 jobs:
   deploy:
