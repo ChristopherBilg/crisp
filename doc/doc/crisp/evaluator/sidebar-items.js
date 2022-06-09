@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["evaluate",""],["evaluate_atom",""],["evaluate_binary_op",""],["evaluate_define",""],["evaluate_do",""],["evaluate_function_call",""],["evaluate_function_definition",""],["evaluate_if",""],["evaluate_list",""],["evaluate_print",""],["evaluate_quote",""],["evaluate_symbol",""]]});
