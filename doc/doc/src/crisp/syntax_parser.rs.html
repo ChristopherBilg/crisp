@@ -37,6 +37,8 @@
 <span id="32">32</span>
 <span id="33">33</span>
 <span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::atom::Atom</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::lexical_analyzer</span>::{<span class="ident">tokenize</span>, <span class="ident">Token</span>};
 
@@ -56,6 +58,7 @@
         <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">tokens</span>.<span class="ident">pop</span>().<span class="ident">unwrap</span>();
         <span class="kw">match</span> <span class="ident">token</span> {
             <span class="ident">Token::LParen</span> =&gt; {
+                <span class="comment">// Add back an LParen if it&#39;s part of a sublist</span>
                 <span class="ident">tokens</span>.<span class="ident">push</span>(<span class="ident">Token::LParen</span>);
                 <span class="kw">let</span> <span class="ident">sub_list</span> <span class="op">=</span> <span class="ident">parse_list</span>(<span class="ident">tokens</span>);
                 <span class="ident">list</span>.<span class="ident">push</span>(<span class="ident">sub_list</span>);
@@ -65,6 +68,7 @@
             }
             <span class="ident">Token::Integer</span>(<span class="ident">n</span>) =&gt; <span class="ident">list</span>.<span class="ident">push</span>(<span class="ident">Atom::Integer</span>(<span class="ident">n</span>)),
             <span class="ident">Token::Float</span>(<span class="ident">n</span>) =&gt; <span class="ident">list</span>.<span class="ident">push</span>(<span class="ident">Atom::Float</span>(<span class="ident">n</span>)),
+            <span class="ident">Token::String</span>(<span class="ident">s</span>) =&gt; <span class="ident">list</span>.<span class="ident">push</span>(<span class="ident">Atom::String</span>(<span class="ident">s</span>)),
             <span class="ident">Token::Symbol</span>(<span class="ident">s</span>) =&gt; <span class="ident">list</span>.<span class="ident">push</span>(<span class="ident">Atom::Symbol</span>(<span class="ident">s</span>)),
         }
     }

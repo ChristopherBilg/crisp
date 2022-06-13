@@ -55,6 +55,12 @@
 <span id="50">50</span>
 <span id="51">51</span>
 <span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>)]</span>
@@ -63,6 +69,7 @@
     <span class="ident">RParen</span>,
     <span class="ident">Integer</span>(<span class="ident">i64</span>),
     <span class="ident">Float</span>(<span class="ident">f64</span>),
+    <span class="ident">String</span>(<span class="ident">String</span>),
     <span class="ident">Symbol</span>(<span class="ident">String</span>),
 }
 
@@ -73,6 +80,7 @@
             <span class="ident">Token::RParen</span> =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;)&quot;</span>),
             <span class="ident">Token::Integer</span>(<span class="ident">n</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>),
             <span class="ident">Token::Float</span>(<span class="ident">n</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>),
+            <span class="ident">Token::String</span>(<span class="ident">s</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">s</span>),
             <span class="ident">Token::Symbol</span>(<span class="ident">s</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">s</span>),
         }
     }
@@ -98,6 +106,10 @@
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">float</span>) <span class="op">=</span> <span class="ident">float</span> {
                     <span class="ident">tokens</span>.<span class="ident">push</span>(<span class="ident">Token::Float</span>(<span class="ident">float</span>));
                     <span class="kw">continue</span>;
+                }
+
+                <span class="kw">if</span> <span class="ident">word</span>.<span class="ident">contains</span>(<span class="string">&quot;example&quot;</span>) {
+                    <span class="ident">tokens</span>.<span class="ident">push</span>(<span class="ident">Token::String</span>(<span class="ident">word</span>.<span class="ident">to_string</span>()));
                 }
 
                 <span class="ident">tokens</span>.<span class="ident">push</span>(<span class="ident">Token::Symbol</span>(<span class="ident">word</span>.<span class="ident">to_string</span>()));
