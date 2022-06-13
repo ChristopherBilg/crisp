@@ -39,19 +39,6 @@ pub fn handle_interactive_mode() {
             .expect("Unable to read line from 'stdin'.");
 
         let value = evaluator::evaluate(&line, &mut environment).unwrap();
-        match value {
-            atom::Atom::Void => {}
-            atom::Atom::Lambda(params, body) => {
-                print!("Lambda(");
-                for param in params {
-                    print!("{} ", param);
-                }
-                println!(")");
-                for expr in body {
-                    println!(" {}", expr);
-                }
-            }
-            _ => println!("{}", value),
-        }
+        println!("       > {}", value);
     }
 }

@@ -1,6 +1,6 @@
 [package]
 name = "crisp"
-description = "(common (rust) lisp)"
+description = "(custom (rust) lisp)"
 version = "0.0.4"
 license-file = "LICENSE.md"
 authors = ["AUTHORS.md"]

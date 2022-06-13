@@ -3,7 +3,7 @@ authors = ["../AUTHORS.md"]
 language = "en"
 multilingual = false
 src = "src"
-title = "crisp Documentation"
+title = "Crisp Documentation"
 
 [output.html]
 git-repository-url = "https://github.com/ChristopherBilg/crisp"

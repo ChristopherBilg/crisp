@@ -9,9 +9,9 @@
 
 ## Reporting a Vulnerability
 
-In order to report a security vulnerability in safe manner, please send an email to [christopherbilg@gmail.com](mailto:christopherbilg@gmail.com) with the subject line: **crisp Security Vulnerability Found**
+In order to report a security vulnerability in safe manner, please send an email to [christopherbilg@gmail.com](mailto:christopherbilg@gmail.com) with the subject line: **Crisp Security Vulnerability Found**
 
-The body of the email should contain information such as; crisp version number, steps to reproduce the vulnerability (if there are any), a potential change to the codebase to remove the security vulnerability, system information (such as OS), etc.
+The body of the email should contain information such as; Crisp version number, steps to reproduce the vulnerability (if there are any), a potential change to the codebase to remove the security vulnerability, system information (such as OS), etc.
 
 You should expect to receive a response to your inquiry within 48 business hours, although this number will be closer to "within 24 business hours" in most cases.
 
