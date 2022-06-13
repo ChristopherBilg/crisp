@@ -6,6 +6,7 @@ pub enum Token {
     RParen,
     Integer(i64),
     Float(f64),
+    String(String),
     Symbol(String),
 }
 
@@ -16,6 +17,7 @@ impl fmt::Display for Token {
             Token::RParen => write!(f, ")"),
             Token::Integer(n) => write!(f, "{}", n),
             Token::Float(n) => write!(f, "{}", n),
+            Token::String(s) => write!(f, "{}", s),
             Token::Symbol(s) => write!(f, "{}", s),
         }
     }
@@ -41,6 +43,10 @@ pub fn tokenize(program: &str) -> Vec<Token> {
                 if let Ok(float) = float {
                     tokens.push(Token::Float(float));
                     continue;
+                }
+
+                if word.contains("example") {
+                    tokens.push(Token::String(word.to_string()));
                 }
 
                 tokens.push(Token::Symbol(word.to_string()));

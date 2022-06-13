@@ -17,6 +17,7 @@ fn parse_list(tokens: &mut Vec<Token>) -> Atom {
         let token = tokens.pop().unwrap();
         match token {
             Token::LParen => {
+                // Add back an LParen if it's part of a sublist
                 tokens.push(Token::LParen);
                 let sub_list = parse_list(tokens);
                 list.push(sub_list);
@@ -26,6 +27,7 @@ fn parse_list(tokens: &mut Vec<Token>) -> Atom {
             }
             Token::Integer(n) => list.push(Atom::Integer(n)),
             Token::Float(n) => list.push(Atom::Float(n)),
+            Token::String(s) => list.push(Atom::String(s)),
             Token::Symbol(s) => list.push(Atom::Symbol(s)),
         }
     }

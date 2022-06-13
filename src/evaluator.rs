@@ -276,6 +276,7 @@ fn evaluate_atom(atom: &Atom, environment: &mut Rc<RefCell<Environment>>) -> Res
         Atom::Integer(i) => Ok(Atom::Integer(*i)),
         Atom::Float(f) => Ok(Atom::Float(*f)),
         Atom::Bool(b) => Ok(Atom::Bool(*b)),
+        Atom::String(s) => Ok(Atom::String(s.clone())),
         Atom::Symbol(s) => evaluate_symbol(s, environment),
         Atom::Lambda(_params, _body) => Ok(Atom::Void),
         Atom::List(list) => evaluate_list(list, environment),
