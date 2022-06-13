@@ -11,3 +11,6 @@ Cargo.lock
 
 # IDE Files
 .vscode/
+
+# `mdbook` Files
+docs/book/
