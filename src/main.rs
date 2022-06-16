@@ -23,7 +23,7 @@ fn main() {
     }
 }
 
-pub fn handle_interactive_mode() {
+fn handle_interactive_mode() {
     let mut line;
     let stdin = io::stdin();
     let mut environment = Rc::new(RefCell::new(environment::Environment::new()));
