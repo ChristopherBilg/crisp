@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/clap-3.2.1/src/builder/arg_settings.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>arg_settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/clap-3.2.5/src/builder/arg_settings.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>arg_settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../clap/index.html"><div class="logo-container"><img src="https://raw.githubusercontent.com/clap-rs/clap/master/assets/clap.png" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -387,6 +387,81 @@
 <span id="380">380</span>
 <span id="381">381</span>
 <span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
 
 <span class="comment">// Std</span>
@@ -422,162 +497,237 @@
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ArgSettings</span> {
     <span class="doccomment">/// Deprecated, replaced with [`Arg::required`] and [`Arg::is_required_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::required` and `Arg::is_required_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::required` and `Arg::is_required_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">Required</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::multiple_values`] and [`Arg::is_multiple_values_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::multiple_values` and `Arg::`is_multiple_values_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::multiple_values` and `Arg::`is_multiple_values_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">MultipleValues</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::multiple_occurrences`] and</span>
     <span class="doccomment">/// [`Arg::is_multiple_occurrences_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::multiple_occurrences` and `Arg::is_multiple_occurrences_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::multiple_occurrences` and `Arg::is_multiple_occurrences_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">MultipleOccurrences</span>,
     <span class="doccomment">/// Deprecated, see [`ArgSettings::MultipleOccurrences`] (most likely what you want) and</span>
     <span class="doccomment">/// [`ArgSettings::MultipleValues`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.0.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Split into `ArgSettings::MultipleOccurrences` (most likely what you want)  and `ArgSettings::MultipleValues`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.0.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Split into `ArgSettings::MultipleOccurrences` (most likely what you want)  and `ArgSettings::MultipleValues`&quot;</span>
+        )
     )]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">Multiple</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::forbid_empty_values`] and</span>
     <span class="doccomment">/// [`Arg::is_forbid_empty_values_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::forbid_empty_values` and `Arg::is_forbid_empty_values_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::forbid_empty_values` and `Arg::is_forbid_empty_values_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">ForbidEmptyValues</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::global`] and [`Arg::is_global_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::global` and `Arg::is_global_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::global` and `Arg::is_global_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">Global</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::hide`] and [`Arg::is_hide_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide` and `Arg::is_hide_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide` and `Arg::is_hide_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">Hidden</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::takes_value`] and [`Arg::is_takes_value_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::takes_value` and `Arg::is_takes_value_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::takes_value` and `Arg::is_takes_value_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">TakesValue</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::use_value_delimiter`] and</span>
     <span class="doccomment">/// [`Arg::is_use_value_delimiter_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::use_value_delimiter` and `Arg::is_use_value_delimiter_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::use_value_delimiter` and `Arg::is_use_value_delimiter_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">UseValueDelimiter</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::next_line_help`] and [`Arg::is_next_line_help_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::next_line_help` and `Arg::is_next_line_help_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::next_line_help` and `Arg::is_next_line_help_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">NextLineHelp</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::require_value_delimiter`] and</span>
     <span class="doccomment">/// [`Arg::is_require_value_delimiter_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::require_value_delimiter` and `Arg::is_require_value_delimiter_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::require_value_delimiter` and `Arg::is_require_value_delimiter_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">RequireDelimiter</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::hide_possible_values`] and</span>
     <span class="doccomment">/// [`Arg::is_hide_possible_values_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_possible_values` and `Arg::is_hide_possible_values_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_possible_values` and `Arg::is_hide_possible_values_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">HidePossibleValues</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::allow_hyphen_values`] and</span>
     <span class="doccomment">/// [`Arg::is_allow_hyphen_values_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::allow_hyphen_values` and `Arg::is_allow_hyphen_values_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::allow_hyphen_values` and `Arg::is_allow_hyphen_values_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">AllowHyphenValues</span>,
     <span class="doccomment">/// Deprecated, replaced with [`ArgSettings::AllowHyphenValues`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.0.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `ArgSettings::AllowHyphenValues`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.0.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `ArgSettings::AllowHyphenValues`&quot;</span>
+        )
     )]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">AllowLeadingHyphen</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::require_equals`] and [`Arg::is_require_equals_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::require_equals` and `Arg::is_require_equals_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::require_equals` and `Arg::is_require_equals_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">RequireEquals</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::last`] and [`Arg::is_last_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::last` and `Arg::is_last_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::last` and `Arg::is_last_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">Last</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::hide_default_value`] and [`Arg::is_hide_default_value_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_default_value` and `Arg::is_hide_default_value_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_default_value` and `Arg::is_hide_default_value_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">HideDefaultValue</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::ignore_case`] and [`Arg::is_ignore_case_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::ignore_case` and `Arg::is_ignore_case_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::ignore_case` and `Arg::is_ignore_case_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">IgnoreCase</span>,
     <span class="doccomment">/// Deprecated, replaced with [`ArgSettings::IgnoreCase`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.0.0&quot;</span>, <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `ArgSettings::IgnoreCase`&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(<span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.0.0&quot;</span>, <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `ArgSettings::IgnoreCase`&quot;</span>)
+    )]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">CaseInsensitive</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::hide_env`] and [`Arg::is_hide_env_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_env` and `Arg::is_hide_env_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_env` and `Arg::is_hide_env_set`&quot;</span>
+        )
     )]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;env&quot;</span>)]</span>
     <span class="ident">HideEnv</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::hide_env_values`] and [`Arg::is_hide_env_values_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_env_values` and `Arg::is_hide_env_values_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_env_values` and `Arg::is_hide_env_values_set`&quot;</span>
+        )
     )]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;env&quot;</span>)]</span>
     <span class="ident">HideEnvValues</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::hide_short_help`] and [`Arg::is_hide_short_help_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_short_help` and `Arg::is_hide_short_help_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_short_help` and `Arg::is_hide_short_help_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">HiddenShortHelp</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::hide_long_help`] and [`Arg::is_hide_long_help_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_long_help` and `Arg::is_hide_long_help_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::hide_long_help` and `Arg::is_hide_long_help_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">HiddenLongHelp</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::allow_invalid_utf8`] and [`Arg::is_allow_invalid_utf8_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::allow_invalid_utf8` and `Arg::is_allow_invalid_utf8_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::allow_invalid_utf8` and `Arg::is_allow_invalid_utf8_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">AllowInvalidUtf8</span>,
     <span class="doccomment">/// Deprecated, replaced with [`Arg::exclusive`] and [`Arg::is_exclusive_set`]</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::exclusive` and `Arg::is_exclusive_set`&quot;</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;deprecated&quot;</span>,
+        <span class="ident">deprecated</span>(
+            <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;3.1.0&quot;</span>,
+            <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Replaced with `Arg::exclusive` and `Arg::is_exclusive_set`&quot;</span>
+        )
     )]</span>
     <span class="ident">Exclusive</span>,
 }

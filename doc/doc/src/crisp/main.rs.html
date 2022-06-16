@@ -72,7 +72,7 @@
     }
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">handle_interactive_mode</span>() {
+<span class="kw">fn</span> <span class="ident">handle_interactive_mode</span>() {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">line</span>;
     <span class="kw">let</span> <span class="ident">stdin</span> <span class="op">=</span> <span class="ident">io::stdin</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">environment</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="ident">RefCell::new</span>(<span class="ident">environment::Environment::new</span>()));
