@@ -1,17 +1,18 @@
 [package]
 name = "crisp"
 description = "(custom (rust) lisp)"
-version = "0.0.4"
+version = "0.0.5"
 license-file = "LICENSE.md"
 authors = ["AUTHORS.md"]
 readme = "README.md"
 edition = "2021"
 homepage = "https://chrisbilger.com/crisp/"
 repository = "https://github.com/ChristopherBilg/crisp"
-documentation = "https://chrisbilger.com/crisp/"
+documentation = "https://chrisbilger.com/crisp/doc/doc/crisp/"
 
 [[bin]]
 name = "crisp"
 
 [dependencies]
-clap = { version = "3.1.17", features = ["derive"] }
+clap = { version = "3.2.6", features = ["derive"] }
+regex = "1.5.6"

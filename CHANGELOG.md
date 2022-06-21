@@ -2,8 +2,13 @@
 
 > Crisp uses [keep a changelog](https://keepachangelog.com/en/1.0.0/) for separation of resposibility between the changelog itself and git logs, and [semantic versioning](https://semver.org/) for software version management.
 
+**0.0.5:**
+- Added String parsing with full whitespace support
+  - Escape characters can be double quotes (`  "  `) or single quotes (`  '  `)
+- Added regex crate (1.5.6)
+- Updated crap crate (3.1.7 -> 3.2.6)
+
 **0.0.4:**
-- Cleaned up codebase to make crisp more resilient to crashing (this is done in preparation for the codebase re-write coming soon)
 - Added `do` function
 
 **0.0.3:**

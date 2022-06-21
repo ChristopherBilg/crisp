@@ -1,5 +1,6 @@
 use crate::atom::Atom;
-use crate::lexical_analyzer::{tokenize, Token};
+use crate::lexical_analyzer::tokenize;
+use crate::token::Token;
 
 pub fn parse(program: &str) -> Atom {
     let token_result = tokenize(program);

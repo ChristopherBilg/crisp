@@ -4,6 +4,7 @@ mod evaluator;
 mod lexical_analyzer;
 mod program_arguments;
 mod syntax_parser;
+mod token;
 
 use clap::Parser;
 use std::{
