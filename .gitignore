@@ -13,4 +13,4 @@ Cargo.lock
 .vscode/
 
 # `mdbook` Files
-docs/book/
+book/book/

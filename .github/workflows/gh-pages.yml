@@ -17,10 +17,10 @@ jobs:
         with:
           mdbook-version: 'latest'
       - run: |
-          mdbook build docs/
-          cargo doc --target-dir ./docs/book/doc
+          mdbook build book/
+          cargo doc --target-dir ./book/book
       - name: Deploy mdBook and cargo doc to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/book
+          publish_dir: ./book/book

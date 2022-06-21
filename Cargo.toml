@@ -8,7 +8,7 @@ readme = "README.md"
 edition = "2021"
 homepage = "https://chrisbilger.com/crisp/"
 repository = "https://github.com/ChristopherBilg/crisp"
-documentation = "https://chrisbilger.com/crisp/doc/doc/crisp/"
+documentation = "https://chrisbilger.com/crisp/doc/crisp/"
 
 [[bin]]
 name = "crisp"
