@@ -14,4 +14,4 @@ documentation = "https://chrisbilger.com/crisp/"
 name = "crisp"
 
 [dependencies]
-clap = { version = "3.1.17", features = ["derive"] }
+clap = { version = "4.0.17", features = ["derive"] }
