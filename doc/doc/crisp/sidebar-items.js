@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["handle_interactive_mode",""],["main",""]],"mod":[["atom",""],["environment",""],["evaluator",""],["lexical_analyzer",""],["program_arguments",""],["syntax_parser",""]]});
+window.SIDEBAR_ITEMS = {"fn":[["handle_interactive_mode",""],["main",""]],"mod":[["atom",""],["environment",""],["evaluator",""],["lexical_analyzer",""],["program_arguments",""],["syntax_parser",""]]};

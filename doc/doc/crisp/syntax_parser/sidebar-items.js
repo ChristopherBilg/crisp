@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["parse",""],["parse_list",""]]});
+window.SIDEBAR_ITEMS = {"fn":[["parse",""],["parse_list",""]]};

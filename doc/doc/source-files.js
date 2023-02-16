@@ -1,23 +1,24 @@
-var N = null;var sourcesIndex = {};
-sourcesIndex["atty"] = {"name":"","files":["lib.rs"]};
-sourcesIndex["bitflags"] = {"name":"","files":["lib.rs"]};
-sourcesIndex["clap"] = {"name":"","dirs":[{"name":"builder","files":["action.rs","app_settings.rs","arg.rs","arg_group.rs","arg_predicate.rs","arg_settings.rs","command.rs","debug_asserts.rs","macros.rs","mod.rs","possible_value.rs","usage_parser.rs","value_hint.rs","value_parser.rs"]},{"name":"error","files":["context.rs","kind.rs","mod.rs"]},{"name":"output","files":["fmt.rs","help.rs","mod.rs","usage.rs"]},{"name":"parser","dirs":[{"name":"features","files":["mod.rs","suggestions.rs"]},{"name":"matches","files":["any_value.rs","arg_matches.rs","matched_arg.rs","mod.rs","value_source.rs"]}],"files":["arg_matcher.rs","error.rs","mod.rs","parser.rs","validator.rs"]},{"name":"util","files":["color.rs","fnv.rs","graph.rs","id.rs","mod.rs","str_to_bool.rs"]}],"files":["derive.rs","lib.rs","macros.rs","mkeymap.rs"]};
-sourcesIndex["clap_derive"] = {"name":"","dirs":[{"name":"derives","files":["args.rs","into_app.rs","mod.rs","parser.rs","subcommand.rs","value_enum.rs"]},{"name":"utils","files":["doc_comments.rs","mod.rs","spanned.rs","ty.rs"]}],"files":["attrs.rs","dummies.rs","lib.rs","parse.rs"]};
-sourcesIndex["clap_lex"] = {"name":"","files":["lib.rs"]};
-sourcesIndex["crisp"] = {"name":"","files":["atom.rs","environment.rs","evaluator.rs","lexical_analyzer.rs","main.rs","program_arguments.rs","syntax_parser.rs"]};
-sourcesIndex["hashbrown"] = {"name":"","dirs":[{"name":"external_trait_impls","files":["mod.rs"]},{"name":"raw","files":["alloc.rs","bitmask.rs","mod.rs","sse2.rs"]}],"files":["lib.rs","macros.rs","map.rs","scopeguard.rs","set.rs"]};
-sourcesIndex["heck"] = {"name":"","files":["kebab.rs","lib.rs","lower_camel.rs","shouty_kebab.rs","shouty_snake.rs","snake.rs","title.rs","upper_camel.rs"]};
-sourcesIndex["indexmap"] = {"name":"","dirs":[{"name":"map","dirs":[{"name":"core","files":["raw.rs"]}],"files":["core.rs"]}],"files":["equivalent.rs","lib.rs","macros.rs","map.rs","mutable_keys.rs","set.rs","util.rs"]};
-sourcesIndex["libc"] = {"name":"","dirs":[{"name":"unix","dirs":[{"name":"linux_like","dirs":[{"name":"linux","dirs":[{"name":"arch","dirs":[{"name":"generic","files":["mod.rs"]}],"files":["mod.rs"]},{"name":"gnu","dirs":[{"name":"b64","dirs":[{"name":"x86_64","files":["align.rs","mod.rs","not_x32.rs"]}],"files":["mod.rs"]}],"files":["align.rs","mod.rs"]}],"files":["align.rs","mod.rs","non_exhaustive.rs"]}],"files":["mod.rs"]}],"files":["align.rs","mod.rs"]}],"files":["fixed_width_ints.rs","lib.rs","macros.rs"]};
-sourcesIndex["once_cell"] = {"name":"","files":["imp_std.rs","lib.rs","race.rs"]};
-sourcesIndex["os_str_bytes"] = {"name":"","dirs":[{"name":"common","files":["mod.rs","raw.rs"]}],"files":["iter.rs","lib.rs","pattern.rs","raw_str.rs","util.rs"]};
-sourcesIndex["proc_macro2"] = {"name":"","files":["detection.rs","fallback.rs","lib.rs","marker.rs","parse.rs","wrapper.rs"]};
-sourcesIndex["proc_macro_error"] = {"name":"","dirs":[{"name":"imp","files":["fallback.rs"]}],"files":["diagnostic.rs","dummy.rs","lib.rs","macros.rs","sealed.rs"]};
-sourcesIndex["proc_macro_error_attr"] = {"name":"","files":["lib.rs","parse.rs","settings.rs"]};
-sourcesIndex["quote"] = {"name":"","files":["ext.rs","format.rs","ident_fragment.rs","lib.rs","runtime.rs","spanned.rs","to_tokens.rs"]};
-sourcesIndex["strsim"] = {"name":"","files":["lib.rs"]};
-sourcesIndex["syn"] = {"name":"","dirs":[{"name":"gen","files":["clone.rs","gen_helper.rs"]}],"files":["attr.rs","await.rs","bigint.rs","buffer.rs","custom_keyword.rs","custom_punctuation.rs","data.rs","derive.rs","discouraged.rs","error.rs","export.rs","expr.rs","ext.rs","file.rs","generics.rs","group.rs","ident.rs","item.rs","lib.rs","lifetime.rs","lit.rs","lookahead.rs","mac.rs","macros.rs","op.rs","parse.rs","parse_macro_input.rs","parse_quote.rs","pat.rs","path.rs","print.rs","punctuated.rs","reserved.rs","sealed.rs","span.rs","spanned.rs","stmt.rs","thread.rs","token.rs","ty.rs","verbatim.rs","whitespace.rs"]};
-sourcesIndex["termcolor"] = {"name":"","files":["lib.rs"]};
-sourcesIndex["textwrap"] = {"name":"","files":["core.rs","indentation.rs","lib.rs","word_separators.rs","word_splitters.rs","wrap_algorithms.rs"]};
-sourcesIndex["unicode_ident"] = {"name":"","files":["lib.rs","tables.rs"]};
+var sourcesIndex = JSON.parse('{\
+"bitflags":["",[],["lib.rs"]],\
+"clap":["",[["builder",[],["action.rs","app_settings.rs","arg.rs","arg_group.rs","arg_predicate.rs","arg_settings.rs","command.rs","debug_asserts.rs","mod.rs","os_str.rs","possible_value.rs","range.rs","resettable.rs","str.rs","styled_str.rs","value_hint.rs","value_parser.rs"]],["error",[],["context.rs","format.rs","kind.rs","mod.rs"]],["output",[["textwrap",[],["core.rs","mod.rs"]]],["fmt.rs","help.rs","help_template.rs","mod.rs","usage.rs"]],["parser",[["features",[],["mod.rs","suggestions.rs"]],["matches",[],["any_value.rs","arg_matches.rs","matched_arg.rs","mod.rs","value_source.rs"]]],["arg_matcher.rs","error.rs","mod.rs","parser.rs","validator.rs"]],["util",[],["color.rs","flat_map.rs","flat_set.rs","graph.rs","id.rs","mod.rs","str_to_bool.rs"]]],["derive.rs","lib.rs","macros.rs","mkeymap.rs"]],\
+"clap_derive":["",[["derives",[],["args.rs","into_app.rs","mod.rs","parser.rs","subcommand.rs","value_enum.rs"]],["utils",[],["doc_comments.rs","mod.rs","spanned.rs","ty.rs"]]],["attr.rs","dummies.rs","item.rs","lib.rs"]],\
+"clap_lex":["",[],["lib.rs"]],\
+"crisp":["",[],["atom.rs","environment.rs","evaluator.rs","lexical_analyzer.rs","main.rs","program_arguments.rs","syntax_parser.rs"]],\
+"heck":["",[],["kebab.rs","lib.rs","lower_camel.rs","shouty_kebab.rs","shouty_snake.rs","snake.rs","title.rs","train.rs","upper_camel.rs"]],\
+"io_lifetimes":["",[],["example_ffi.rs","lib.rs","portability.rs","raw.rs","traits.rs","views.rs"]],\
+"is_terminal":["",[],["lib.rs"]],\
+"libc":["",[["unix",[["linux_like",[["linux",[["arch",[["generic",[],["mod.rs"]]],["mod.rs"]],["gnu",[["b64",[["x86_64",[],["align.rs","mod.rs","not_x32.rs"]]],["mod.rs"]]],["align.rs","mod.rs"]]],["align.rs","mod.rs","non_exhaustive.rs"]]],["mod.rs"]]],["align.rs","mod.rs"]]],["fixed_width_ints.rs","lib.rs","macros.rs"]],\
+"linux_raw_sys":["",[["x86_64",[],["errno.rs","general.rs","ioctl.rs"]]],["lib.rs"]],\
+"once_cell":["",[],["imp_std.rs","lib.rs","race.rs"]],\
+"os_str_bytes":["",[["common",[],["mod.rs","raw.rs"]]],["iter.rs","lib.rs","pattern.rs","raw_str.rs"]],\
+"proc_macro2":["",[],["detection.rs","fallback.rs","lib.rs","marker.rs","parse.rs","rcvec.rs","wrapper.rs"]],\
+"proc_macro_error":["",[["imp",[],["fallback.rs"]]],["diagnostic.rs","dummy.rs","lib.rs","macros.rs","sealed.rs"]],\
+"proc_macro_error_attr":["",[],["lib.rs","parse.rs","settings.rs"]],\
+"quote":["",[],["ext.rs","format.rs","ident_fragment.rs","lib.rs","runtime.rs","spanned.rs","to_tokens.rs"]],\
+"rustix":["",[["backend",[["linux_raw",[["arch",[["inline",[],["mod.rs","x86_64.rs"]]],["mod.rs"]],["io",[],["epoll.rs","errno.rs","mod.rs","poll_fd.rs","syscalls.rs","types.rs"]],["process",[],["cpu_set.rs","mod.rs","syscalls.rs","types.rs","wait.rs"]],["termios",[],["mod.rs","syscalls.rs","types.rs"]],["time",[],["mod.rs","types.rs"]]],["c.rs","conv.rs","elf.rs","mod.rs","reg.rs"]]]],["ffi",[],["mod.rs"]],["io",[],["close.rs","context.rs","dup.rs","errno.rs","eventfd.rs","fcntl.rs","ioctl.rs","is_read_write.rs","mod.rs","pipe.rs","poll.rs","read_write.rs","stdio.rs"]],["path",[],["arg.rs","mod.rs"]],["process",[],["chdir.rs","exit.rs","id.rs","kill.rs","membarrier.rs","mod.rs","prctl.rs","priority.rs","rlimit.rs","sched.rs","sched_yield.rs","uname.rs","wait.rs"]],["termios",[],["cf.rs","constants.rs","mod.rs","tc.rs","tty.rs"]]],["const_assert.rs","cstr.rs","lib.rs","utils.rs"]],\
+"strsim":["",[],["lib.rs"]],\
+"syn":["",[["gen",[],["clone.rs","gen_helper.rs"]]],["attr.rs","await.rs","bigint.rs","buffer.rs","custom_keyword.rs","custom_punctuation.rs","data.rs","derive.rs","discouraged.rs","drops.rs","error.rs","export.rs","expr.rs","ext.rs","file.rs","generics.rs","group.rs","ident.rs","item.rs","lib.rs","lifetime.rs","lit.rs","lookahead.rs","mac.rs","macros.rs","op.rs","parse.rs","parse_macro_input.rs","parse_quote.rs","pat.rs","path.rs","print.rs","punctuated.rs","reserved.rs","sealed.rs","span.rs","spanned.rs","stmt.rs","thread.rs","token.rs","ty.rs","verbatim.rs","whitespace.rs"]],\
+"termcolor":["",[],["lib.rs"]],\
+"unicode_ident":["",[],["lib.rs","tables.rs"]]\
+}');
 createSourceSidebar();

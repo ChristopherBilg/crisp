@@ -1,1 +1,1 @@
-window.ALL_CRATES = ["atty","bitflags","clap","clap_derive","clap_lex","crisp","hashbrown","heck","indexmap","libc","once_cell","os_str_bytes","proc_macro2","proc_macro_error","proc_macro_error_attr","quote","strsim","syn","termcolor","textwrap","unicode_ident"];
+window.ALL_CRATES = ["bitflags","clap","clap_derive","clap_lex","crisp","heck","io_lifetimes","is_terminal","libc","linux_raw_sys","once_cell","os_str_bytes","proc_macro2","proc_macro_error","proc_macro_error_attr","quote","rustix","strsim","syn","termcolor","unicode_ident"];
