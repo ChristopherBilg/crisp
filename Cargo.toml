@@ -14,4 +14,7 @@ documentation = "https://chrisbilger.com/crisp/"
 name = "crisp"
 
 [dependencies]
-clap = { version = "4.1.6", features = ["derive"] }
+clap = { version = "4.1", features = ["derive"] }
+inkwell = { git = "https://github.com/TheDan64/inkwell", branch = "master", features = [
+  "llvm15-0",
+] }
