@@ -1,68 +1,44 @@
-use inkwell::builder::Builder;
-use inkwell::context::Context;
-use inkwell::execution_engine::{ExecutionEngine, JitFunction};
-use inkwell::module::Module;
-use inkwell::OptimizationLevel;
-use std::error::Error;
+mod atom;
+mod environment;
+mod evaluator;
+mod lexical_analyzer;
+mod program_arguments;
+mod syntax_parser;
 
-/// Convenience type alias for the `sum` function.
-///
-/// Calling this is innately `unsafe` because there's no guarantee it doesn't
-/// do `unsafe` operations internally.
-type SumFunc = unsafe extern "C" fn(u64, u64, u64) -> u64;
+use clap::Parser;
+use std::{
+    cell::RefCell,
+    io::{self, BufRead, Write},
+    rc::Rc,
+};
 
-struct CodeGen<'ctx> {
-    context: &'ctx Context,
-    module: Module<'ctx>,
-    builder: Builder<'ctx>,
-    execution_engine: ExecutionEngine<'ctx>,
-}
+fn main() {
+    // Parse the derived program arguments (CLI)
+    let program_args = program_arguments::ProgramArguments::parse();
 
-impl<'ctx> CodeGen<'ctx> {
-    fn jit_compile_sum(&self) -> Option<JitFunction<SumFunc>> {
-        let i64_type = self.context.i64_type();
-        let fn_type = i64_type.fn_type(&[i64_type.into(), i64_type.into(), i64_type.into()], false);
-        let function = self.module.add_function("sum", fn_type, None);
-        let basic_block = self.context.append_basic_block(function, "entry");
-
-        self.builder.position_at_end(basic_block);
-
-        let x = function.get_nth_param(0)?.into_int_value();
-        let y = function.get_nth_param(1)?.into_int_value();
-        let z = function.get_nth_param(2)?.into_int_value();
-
-        let sum = self.builder.build_int_add(x, y, "sum");
-        let sum = self.builder.build_int_add(sum, z, "sum");
-
-        self.builder.build_return(Some(&sum));
-
-        unsafe { self.execution_engine.get_function("sum").ok() }
+    // Interactive mode
+    if program_args.interactive {
+        handle_interactive_mode();
+        std::process::exit(0);
     }
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
-    let context = Context::create();
-    let module = context.create_module("sum");
-    let execution_engine = module.create_jit_execution_engine(OptimizationLevel::None)?;
-    let codegen = CodeGen {
-        context: &context,
-        module,
-        builder: context.create_builder(),
-        execution_engine,
-    };
+fn handle_interactive_mode() {
+    let mut line;
+    let stdin = io::stdin();
+    let mut environment = Rc::new(RefCell::new(environment::Environment::new()));
 
-    let sum = codegen
-        .jit_compile_sum()
-        .ok_or("Unable to JIT compile `sum`")?;
+    loop {
+        line = String::new();
 
-    let x = 101u64;
-    let y = 202u64;
-    let z = 303u64;
+        print!("crisp => ");
+        io::stdout().flush().unwrap();
+        stdin
+            .lock()
+            .read_line(&mut line)
+            .expect("Unable to read line from 'stdin'.");
 
-    unsafe {
-        println!("{} + {} + {} = {}", x, y, z, sum.call(x, y, z));
-        assert_eq!(sum.call(x, y, z), x + y + z);
+        let value = evaluator::evaluate(&line, &mut environment).unwrap();
+        println!("       > {}", value);
     }
-
-    Ok(())
 }
