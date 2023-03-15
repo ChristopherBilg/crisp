@@ -19,8 +19,9 @@ fn main() {
     // Interactive mode
     if program_args.interactive {
         handle_interactive_mode();
-        std::process::exit(0);
     }
+
+    std::process::exit(0);
 }
 
 fn handle_interactive_mode() {
@@ -38,7 +39,10 @@ fn handle_interactive_mode() {
             .read_line(&mut line)
             .expect("Unable to read line from 'stdin'.");
 
-        let value = evaluator::evaluate(&line, &mut environment).unwrap();
-        println!("       > {}", value);
+        let evaluated_result = evaluator::evaluate(&line, &mut environment);
+        match evaluated_result {
+            Ok(atom) => println!("       > {}", atom),
+            Err(error) => println!("       > {}", error),
+        }
     }
 }

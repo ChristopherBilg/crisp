@@ -1,4 +1,4 @@
-use std::fmt;
+use std::fmt::{Display, Formatter, Result};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Token {
@@ -10,8 +10,8 @@ pub enum Token {
     Symbol(String),
 }
 
-impl fmt::Display for Token {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Display for Token {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         match self {
             Token::LParen => write!(f, "("),
             Token::RParen => write!(f, ")"),
@@ -45,8 +45,9 @@ pub fn tokenize(program: &str) -> Vec<Token> {
                     continue;
                 }
 
-                if word.contains("example") {
+                if word.eq("string_token_example") {
                     tokens.push(Token::String(word.to_string()));
+                    continue;
                 }
 
                 tokens.push(Token::Symbol(word.to_string()));
