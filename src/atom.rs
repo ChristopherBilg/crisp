@@ -1,4 +1,4 @@
-use std::fmt;
+use std::fmt::{Display, Formatter, Result};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Atom {
@@ -12,8 +12,8 @@ pub enum Atom {
     List(Vec<Atom>),
 }
 
-impl fmt::Display for Atom {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Display for Atom {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         match self {
             Atom::Void => write!(f, "Void"),
             Atom::Integer(n) => write!(f, "{}", n),

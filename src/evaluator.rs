@@ -184,12 +184,13 @@ fn evaluate_function_call(
     list: &[Atom],
     environment: &mut Rc<RefCell<Environment>>,
 ) -> Result<Atom, String> {
-    let lamdba = environment.borrow_mut().get(symbol);
-    if lamdba.is_none() {
-        return Err(format!("Unbound symbol: {}", symbol));
-    }
+    let lambda = environment.borrow_mut().get(symbol);
 
-    let func = lamdba.unwrap();
+    let func = match lambda {
+        Some(atom) => atom,
+        None => Atom::Void,
+    };
+
     match func {
         Atom::Lambda(params, body) => {
             let mut new_env = Rc::new(RefCell::new(Environment::extend(environment.clone())));
@@ -209,11 +210,11 @@ fn evaluate_symbol(
     environment: &mut Rc<RefCell<Environment>>,
 ) -> Result<Atom, String> {
     let value = environment.borrow_mut().get(symbol);
-    if value.is_none() {
-        return Err(format!("Unbound symbol: {}", symbol));
-    }
 
-    Ok(value.unwrap())
+    match value {
+        Some(atom) => Ok(atom),
+        None => Err(format!("Unbound symbol: {}", symbol)),
+    }
 }
 
 fn evaluate_print(
@@ -224,7 +225,11 @@ fn evaluate_print(
         return Err("Invalid number of arguments for quote statement".to_string());
     }
 
-    println!("{}", evaluate_atom(&list[1], environment).unwrap());
+    let evaluated_atom = evaluate_atom(&list[1], environment);
+    match evaluated_atom {
+        Ok(atom) => println!("{}", atom),
+        Err(error) => println!("{}", error),
+    }
 
     Ok(Atom::Void)
 }
